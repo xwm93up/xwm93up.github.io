@@ -6,21 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>SpringBoot+MyBatis搭建基本骨架 | Hexo</title>
+  <title>SpringBoot+MyBatis搭建基本骨架 | 余音未散</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="项目整合SpringBoot+MyBatis搭建基本骨架 主要知识是用SpringBoot+MyBatis搭建基本骨架，实现基本的CRUD操作和通过PageHelper实现分页查询  项目使用的框架介绍 SpringBoot可以让你快速构建基于Spring的Web应用程序，内置多种Web容器(如Tomcat)，通过启动入口程序的main函数即可运行。  PageHelper MyBatis分页插件">
+  <meta name="description" content="项目整合SpringBoot+MyBatis搭建基本骨架 主要知识是用SpringBoot+MyBatis搭建基本骨架，实现基本的CRUD操作和通过PageHelper实现分页查询">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot+MyBatis搭建基本骨架">
 <meta property="og:url" content="http://example.com/2020/11/23/SpringBoot-MyBatis%E6%90%AD%E5%BB%BA%E5%9F%BA%E6%9C%AC%E9%AA%A8%E6%9E%B6/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="项目整合SpringBoot+MyBatis搭建基本骨架 主要知识是用SpringBoot+MyBatis搭建基本骨架，实现基本的CRUD操作和通过PageHelper实现分页查询  项目使用的框架介绍 SpringBoot可以让你快速构建基于Spring的Web应用程序，内置多种Web容器(如Tomcat)，通过启动入口程序的main函数即可运行。  PageHelper MyBatis分页插件">
-<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="余音未散">
+<meta property="og:description" content="项目整合SpringBoot+MyBatis搭建基本骨架 主要知识是用SpringBoot+MyBatis搭建基本骨架，实现基本的CRUD操作和通过PageHelper实现分页查询">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-23T15:21:39.000Z">
-<meta property="article:modified_time" content="2020-11-23T16:28:31.415Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2020-11-29T13:55:13.953Z">
+<meta property="article:author" content="xwm93">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="余音未散" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -50,8 +51,10 @@
 			<img src="/img/qiang.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/"></a></h1>
+		  <h1 class="header-author"><a href="/">余音未散</a></h1>
 		</hgroup>
+		
+		<p class="header-subtitle">求知若饥，虚心若愚</p>
 		
 
 		<nav class="header-menu">
@@ -83,11 +86,13 @@
 				
 					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
 					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+					<a class="qq" target="_blank" href="#" title="qq"><i class="icon-qq"></i></a>
+		        
+					<a class="weixin" target="_blank" href="#" title="weixin"><i class="icon-weixin"></i></a>
+		        
+					<a class="mail" target="_blank" href="mailto:xwm6533@163.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -108,8 +113,10 @@
 				<img src="/img/qiang.jpg" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author"></h1>
+			  <h1 class="header-author js-header-author">余音未散</h1>
 			</hgroup>
+			
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>求知若饥，虚心若愚<i class="icon icon-quo-right"></i></p>
 			
 			
 			
@@ -124,11 +131,13 @@
 					
 						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
-			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
 						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+						<a class="qq" target="_blank" href="#" title="qq"><i class="icon-qq"></i></a>
+			        
+						<a class="weixin" target="_blank" href="#" title="weixin"><i class="icon-weixin"></i></a>
+			        
+						<a class="mail" target="_blank" href="mailto:xwm6533@163.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -177,6 +186,8 @@
         <h1 id="项目整合SpringBoot-MyBatis搭建基本骨架"><a href="#项目整合SpringBoot-MyBatis搭建基本骨架" class="headerlink" title="项目整合SpringBoot+MyBatis搭建基本骨架"></a>项目整合SpringBoot+MyBatis搭建基本骨架</h1><blockquote>
 <p>主要知识是用SpringBoot+MyBatis搭建基本骨架，实现基本的CRUD操作和通过PageHelper实现分页查询</p>
 </blockquote>
+<a id="more"></a>
+
 <h2 id="项目使用的框架介绍"><a href="#项目使用的框架介绍" class="headerlink" title="项目使用的框架介绍"></a>项目使用的框架介绍</h2><blockquote>
 <p>SpringBoot可以让你快速构建基于Spring的Web应用程序，内置多种Web容器(如Tomcat)，通过启动入口程序的main函数即可运行。</p>
 </blockquote>
@@ -333,6 +344,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%95%B4%E5%90%88SpringBoot-MyBatis%E6%90%AD%E5%BB%BA%E5%9F%BA%E6%9C%AC%E9%AA%A8%E6%9E%B6"><span class="toc-number">1.</span> <span class="toc-text">项目整合SpringBoot+MyBatis搭建基本骨架</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E4%BD%BF%E7%94%A8%E7%9A%84%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">项目使用的框架介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PageHelper"><span class="toc-number">1.1.1.</span> <span class="toc-text">PageHelper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mybatis-generator"><span class="toc-number">1.1.2.</span> <span class="toc-text">Mybatis generator</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA"><span class="toc-number">1.2.</span> <span class="toc-text">项目搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%80%E4%B8%AASpringBoot%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.2.1.</span> <span class="toc-text">初始化一个SpringBoot项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E9%A1%B9%E7%9B%AE%E4%BE%9D%E8%B5%96"><span class="toc-number">1.2.2.</span> <span class="toc-text">添加项目依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0SpringBoot%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.3.</span> <span class="toc-text">添加SpringBoot配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0MyBatis-generator%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6generatorConfig-xml"><span class="toc-number">1.2.4.</span> <span class="toc-text">添加MyBatis generator配置文件generatorConfig.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8CGenerator%E7%9A%84main%E5%87%BD%E6%95%B0%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81"><span class="toc-number">1.2.5.</span> <span class="toc-text">运行Generator的main函数生成代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0MyBatis%E7%9A%84Java%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.6.</span> <span class="toc-text">添加MyBatis的Java配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0Controller%E5%B1%82"><span class="toc-number">1.2.7.</span> <span class="toc-text">实现Controller层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0Service%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.2.8.</span> <span class="toc-text">添加Service接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0Servic%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.2.9.</span> <span class="toc-text">实现Servic接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">1.3.</span> <span class="toc-text">参考文献</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -356,7 +380,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 John Doe
+    		&copy; 2020 xwm93
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
