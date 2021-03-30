@@ -163,8 +163,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-SpringBoot整合SpringSecurity和JWT实现认证和授权" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/25/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">SpringBoot整合SpringSecurity和JWT实现认证和授权</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/25/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/" class="archive-article-date">
+  	<time datetime="2021-03-25T14:32:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringBoot整合SpringSecurity和JWT实现认证和授权"><a href="#SpringBoot整合SpringSecurity和JWT实现认证和授权" class="headerlink" title="SpringBoot整合SpringSecurity和JWT实现认证和授权"></a>SpringBoot整合SpringSecurity和JWT实现认证和授权</h1><hr>
+<blockquote>
+<p>SpringBoot整合SpringSecurity和JWT实现后台用户的登录和授权功能, 同是改造Swagger-UI的配置使其可以自动记住登录令牌进行发送.</p>
+</blockquote>
+<h2 id="项目框架介绍"><a href="#项目框架介绍" class="headerlink" title="项目框架介绍"></a>项目框架介绍</h2><hr>
+<h3 id="SpringSecurity"><a href="#SpringSecurity" class="headerlink" title="SpringSecurity"></a>SpringSecurity</h3><blockquote>
+<p>SpringSecurity是一个强大的可高度定制的认证和授权框架, 对于Spring应用来说他说一套Web安全标准. SpringSecurity注重于为Java应用提供认证和授权功能, 向所有Spring项目一样, 它对自定义需求具有强大的扩展性.</p>
+</blockquote>
+<h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><blockquote>
+<p>JWT是JSON WEB TOKEN的缩写, 他是基于RFC 7519标准定义的一种可以安全传输的JSON对象, 由于使用了数字签名, 所以是可信任和安全的.</p>
+</blockquote>
+<h4 id="JWT的组成"><a href="#JWT的组成" class="headerlink" title="JWT的组成"></a>JWT的组成</h4><ul>
+<li>JWT token的格式: header.payload.signature</li>
+<li>header中用于存放签名的生成算法<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;alg&quot;</span>: <span class="string">&quot;HS512&quot;</span>&#125;</span><br></pre></td></tr></table></figure></li>
+<li> ayload中用于存放用户名、token的生成时间和过期时间<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;sub&quot;</span>:<span class="string">&quot;admin&quot;</span>,<span class="attr">&quot;created&quot;</span>:<span class="number">1489079981393</span>,<span class="attr">&quot;exp&quot;</span>:<span class="number">1489684781</span>&#125;</span><br></pre></td></tr></table></figure></li>
+<li>signature为header和payload生成的签名, 一旦header和payload被篡改, 验证失败<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//secret为加密算法的密钥</span></span><br><span class="line">String signature = HMACSHA512(base64UrlEncode(header) + &quot;.&quot; +base64UrlEncode(payload),secret)</span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/03/25/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SpringBoot整合Redis实现缓存功能" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/24/SpringBoot%E6%95%B4%E5%90%88Redis%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98%E5%8A%9F%E8%83%BD/">SpringBoot整合Redis实现缓存功能</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/24/SpringBoot%E6%95%B4%E5%90%88Redis%E5%AE%9E%E7%8E%B0%E7%BC%93%E5%AD%98%E5%8A%9F%E8%83%BD/" class="archive-article-date">
+  	<time datetime="2021-03-24T13:03:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-24</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
