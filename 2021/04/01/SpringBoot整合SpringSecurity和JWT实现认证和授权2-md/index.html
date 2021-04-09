@@ -15,20 +15,20 @@
 <meta property="og:site_name" content="余音未散">
 <meta property="og:description" content="SpringBoot整合SpringSecurity和JWT实现认证和授权2 接上, controller和service层的代码实现及登录授权流程演示  登入注册功能实现添加UmsAdminController类 实现了用户后台登录、注册及获取权限的接口  1234567891011121314151617181920212223242526272829303132333435363738394">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2021/04/01/images/%E9%9B%86%E6%88%90JWT%E6%8E%88%E6%9D%832.png">
-<meta property="og:image" content="http://example.com/2021/04/01/images/JWT-swagger1.png">
-<meta property="og:image" content="http://example.com/2021/04/01/images/JWT-swagger2.png">
-<meta property="og:image" content="http://example.com/2021/04/01/images/JWT-swagger3.png">
-<meta property="og:image" content="http://example.com/2021/04/01/images/JWT-swagger4.png">
-<meta property="og:image" content="http://example.com/2021/04/01/images/JWT-swagger5.png">
-<meta property="og:image" content="http://example.com/2021/04/01/images/JWT-swagger6.png">
-<meta property="og:image" content="http://example.com/2021/04/01/images/JWT-swagger7.png">
+<meta property="og:image" content="http://example.com/images/%E9%9B%86%E6%88%90JWT%E6%8E%88%E6%9D%832.png">
+<meta property="og:image" content="http://example.com/images/JWT-swagger1.png">
+<meta property="og:image" content="http://example.com/images/JWT-swagger2.png">
+<meta property="og:image" content="http://example.com/images/JWT-swagger3.png">
+<meta property="og:image" content="http://example.com/images/JWT-swagger4.png">
+<meta property="og:image" content="http://example.com/images/JWT-swagger5.png">
+<meta property="og:image" content="http://example.com/images/JWT-swagger6.png">
+<meta property="og:image" content="http://example.com/images/JWT-swagger7.png">
 <meta property="article:published_time" content="2021-04-01T13:17:10.000Z">
-<meta property="article:modified_time" content="2021-04-07T14:56:40.621Z">
+<meta property="article:modified_time" content="2021-04-09T14:06:11.846Z">
 <meta property="article:author" content="xwm93">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2021/04/01/images/%E9%9B%86%E6%88%90JWT%E6%8E%88%E6%9D%832.png">
+<meta name="twitter:image" content="http://example.com/images/%E9%9B%86%E6%88%90JWT%E6%8E%88%E6%9D%832.png">
   
     <link rel="alternative" href="/atom.xml" title="余音未散" type="application/atom+xml">
   
@@ -209,7 +209,7 @@
 
 <h3 id="编写UmsAdminRoleRelationDao-xml"><a href="#编写UmsAdminRoleRelationDao-xml" class="headerlink" title="编写UmsAdminRoleRelationDao.xml"></a>编写UmsAdminRoleRelationDao.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">mapper</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span> <span class="meta-string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mapper</span> <span class="attr">namespace</span>=<span class="string">&quot;com.macro.mall.tiny.dao.UmsAdminRoleRelationDao&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;getPermissionList&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;com.macro.mall.tiny.mbg.model.UmsPermission&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        SELECT</span><br><span class="line">            p.*</span><br><span class="line">        FROM</span><br><span class="line">            ums_admin_role_relation ar</span><br><span class="line">            LEFT JOIN ums_role r ON ar.role_id = r.id</span><br><span class="line">            LEFT JOIN ums_role_permission_relation rp ON r.id = rp.role_id</span><br><span class="line">            LEFT JOIN ums_permission p ON rp.permission_id = p.id</span><br><span class="line">        WHERE</span><br><span class="line">            ar.admin_id = #&#123;adminId&#125;</span><br><span class="line">            AND p.id IS NOT NULL</span><br><span class="line">            AND p.id NOT IN (</span><br><span class="line">                SELECT</span><br><span class="line">                    p.id</span><br><span class="line">                FROM</span><br><span class="line">                    ums_admin_permission_relation pr</span><br><span class="line">                    LEFT JOIN ums_permission p ON pr.permission_id = p.id</span><br><span class="line">                WHERE</span><br><span class="line">                    pr.type = - 1</span><br><span class="line">                    AND pr.admin_id = #&#123;adminId&#125;</span><br><span class="line">            )</span><br><span class="line">        UNION</span><br><span class="line">        SELECT</span><br><span class="line">            p.*</span><br><span class="line">        FROM</span><br><span class="line">            ums_admin_permission_relation pr</span><br><span class="line">            LEFT JOIN ums_permission p ON pr.permission_id = p.id</span><br><span class="line">        WHERE</span><br><span class="line">            pr.type = 1</span><br><span class="line">            AND pr.admin_id = #&#123;adminId&#125;</span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mapper</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="配置扫描自定义mapper"><a href="#配置扫描自定义mapper" class="headerlink" title="配置扫描自定义mapper"></a>配置扫描自定义mapper</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.macro.mall.tiny.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.mybatis.spring.annotation.MapperScan;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Mybatis配置类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: xwm93up</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Since</span>: 2020/11/23 23:50</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span>: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@MapperScan(&#123;&quot;com.macro.mall.tiny.mbg.mapper&quot;,&quot;com.macro.mall.tiny.dao&quot;&#125;)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyBatisConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><img src="../images/%E9%9B%86%E6%88%90JWT%E6%8E%88%E6%9D%832.png"></p>
+<p><img src="/images/%E9%9B%86%E6%88%90JWT%E6%8E%88%E6%9D%832.png"></p>
 <h3 id="修改Swagger的配置"><a href="#修改Swagger的配置" class="headerlink" title="修改Swagger的配置"></a>修改Swagger的配置</h3><blockquote>
 <p>通过修改配置实现调用接口自带Authorization头, 这样就可以访问需要登录的接口了</p>
 </blockquote>
@@ -222,24 +222,24 @@
 </ul>
 <p>例如:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PreAuthorize(&quot;hasAnyAuthority(&#x27;pms:brand:read&#x27;)&quot;)</span></span><br><span class="line">    <span class="meta">@ApiOperation(&quot;获取所有品牌列表&quot;)</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;listAll&quot;, method = RequestMethod.GET)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="keyword">public</span> CommonResult&lt;List&lt;PmsBrand&gt;&gt; getBrandList() &#123;</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(demoService.listAllBrand());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="认证与授权流程演示"><a href="#认证与授权流程演示" class="headerlink" title="认证与授权流程演示"></a>认证与授权流程演示</h2><h3 id="运行项目-访问API"><a href="#运行项目-访问API" class="headerlink" title="运行项目, 访问API"></a>运行项目, 访问API</h3><p>Swagger api地址：<a target="_blank" rel="noopener" href="http://localhost:8080/swagger-ui.html">http://localhost:8080/swagger-ui.html</a><br><img src="../images/JWT-swagger1.png"></p>
-<h3 id="未登录前访问接口"><a href="#未登录前访问接口" class="headerlink" title="未登录前访问接口"></a>未登录前访问接口</h3><p><img src="../images/JWT-swagger2.png"></p>
+<h2 id="认证与授权流程演示"><a href="#认证与授权流程演示" class="headerlink" title="认证与授权流程演示"></a>认证与授权流程演示</h2><h3 id="运行项目-访问API"><a href="#运行项目-访问API" class="headerlink" title="运行项目, 访问API"></a>运行项目, 访问API</h3><p>Swagger api地址：<a target="_blank" rel="noopener" href="http://localhost:8080/swagger-ui.html">http://localhost:8080/swagger-ui.html</a><br><img src="/images/JWT-swagger1.png"></p>
+<h3 id="未登录前访问接口"><a href="#未登录前访问接口" class="headerlink" title="未登录前访问接口"></a>未登录前访问接口</h3><p><img src="/images/JWT-swagger2.png"></p>
 <h3 id="登录后访问接口"><a href="#登录后访问接口" class="headerlink" title="登录后访问接口"></a>登录后访问接口</h3><ul>
-<li><p>进行登录操作: 登录账号test 123456<br><img src="../images/JWT-swagger3.png"></p>
+<li><p>进行登录操作: 登录账号test 123456<br><img src="/images/JWT-swagger3.png"></p>
 </li>
-<li><p>点击Authorize按钮, 在弹框中输入登录接口中获取到的token信息<br><img src="../images/JWT-swagger4.png"></p>
+<li><p>点击Authorize按钮, 在弹框中输入登录接口中获取到的token信息<br><img src="/images/JWT-swagger4.png"></p>
 </li>
-<li><p>登录后访问获取权限列表接口. 发现已经可以正常访问<br><img src="../images/JWT-swagger5.png"></p>
+<li><p>登录后访问获取权限列表接口. 发现已经可以正常访问<br><img src="/images/JWT-swagger5.png"></p>
 </li>
 </ul>
 <h4 id="访问需要权限的接口"><a href="#访问需要权限的接口" class="headerlink" title="访问需要权限的接口"></a>访问需要权限的接口</h4><blockquote>
 <p>由于test帐号并没有设置任何权限，所以他无法访问具有pms:brand:read权限的获取品牌列表接口。</p>
 </blockquote>
-<p><img src="../images/JWT-swagger6.png"></p>
+<p><img src="/images/JWT-swagger6.png"></p>
 <h3 id="改用其他有权限的账号登录"><a href="#改用其他有权限的账号登录" class="headerlink" title="改用其他有权限的账号登录"></a>改用其他有权限的账号登录</h3><blockquote>
 <p>改用admin 123456登录后访问，点击Authorize按钮打开弹框,点击logout登出后再重新输入新token。</p>
 </blockquote>
-<p><img src="../images/JWT-swagger7.png"></p>
+<p><img src="/images/JWT-swagger7.png"></p>
 
       
 
