@@ -163,33 +163,75 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-SpringBoot整合SpringSecurity和JWT实现认证和授权2-md" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-SpringBoot整合SpringTask实现定时任务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/04/01/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%832-md/">SpringBoot整合SpringSecurity和JWT实现认证和授权2.md</a>
+      <a class="article-title" href="/2021/04/11/SpringBoot%E6%95%B4%E5%90%88SpringTask%E5%AE%9E%E7%8E%B0%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/">SpringBoot整合SpringTask实现定时任务</a>
     </h1>
   
 
         
-        <a href="/2021/04/01/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%832-md/" class="archive-article-date">
-  	<time datetime="2021-04-01T13:17:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-01</time>
+        <a href="/2021/04/11/SpringBoot%E6%95%B4%E5%90%88SpringTask%E5%AE%9E%E7%8E%B0%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" class="archive-article-date">
+  	<time datetime="2021-04-11T03:54:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SpringBoot整合SpringSecurity和JWT实现认证和授权2"><a href="#SpringBoot整合SpringSecurity和JWT实现认证和授权2" class="headerlink" title="SpringBoot整合SpringSecurity和JWT实现认证和授权2"></a>SpringBoot整合SpringSecurity和JWT实现认证和授权2</h1><blockquote>
-<p>接上, controller和service层的代码实现及登录授权流程演示</p>
+        <h1 id="SpringBoot整合SpringTask实现定时任务"><a href="#SpringBoot整合SpringTask实现定时任务" class="headerlink" title="SpringBoot整合SpringTask实现定时任务"></a>SpringBoot整合SpringTask实现定时任务</h1><blockquote>
+<p>以批量修改超时订单为例</p>
 </blockquote>
-<h2 id="登入注册功能实现"><a href="#登入注册功能实现" class="headerlink" title="登入注册功能实现"></a>登入注册功能实现</h2><h3 id="添加UmsAdminController类"><a href="#添加UmsAdminController类" class="headerlink" title="添加UmsAdminController类"></a>添加UmsAdminController类</h3><blockquote>
-<p>实现了用户后台登录、注册及获取权限的接口</p>
+<h2 id="项目使用框架"><a href="#项目使用框架" class="headerlink" title="项目使用框架"></a>项目使用框架</h2><h3 id="SpringTask"><a href="#SpringTask" class="headerlink" title="SpringTask"></a>SpringTask</h3><blockquote>
+<p>SpringTask是Spring自主研发的轻量级定时任务工具, 相比于Quartz更加简洁方便, 且不用引入其他依赖</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.macro.mall.tiny.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.common.api.CommonResult;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.dto.UmsAdminLoginParam;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.mbg.model.UmsAdmin;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.mbg.model.UmsPermission;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.service.UmsAdminService;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.Api;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiOperation;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.validation.BindingResult;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用户后台管理</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: xwm93up</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Since</span>: 2021/4/1 21:21</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span>: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@Api(tags = &quot;UmsAdminController&quot;, description = &quot;后台用户管理&quot;)</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/admin&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UmsAdminController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UmsAdminService adminService;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;jwt.tokenHeader&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String tokenHeader;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;jwt.tokenHead&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String tokenHead;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;用户注册&quot;)</span></span><br><span class="line">    @ </span><br><span class="line">    </span><br><span class="line">    (value = <span class="string">&quot;/register&quot;</span>, method = RequestMethod.POST)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonResult&lt;UmsAdmin&gt; <span class="title">register</span><span class="params">(<span class="meta">@RequestBody</span> UmsAdmin umsAdminParam, BindingResult result)</span> </span>&#123;</span><br><span class="line">        UmsAdmin umsAdmin = adminService.register(umsAdminParam);</span><br><span class="line">        <span class="keyword">if</span> (umsAdmin == <span class="keyword">null</span>) &#123;</span><br><span class="line">            CommonResult.failed();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(umsAdmin);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;登录以后返回token&quot;)</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;, method = RequestMethod.POST)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonResult <span class="title">login</span><span class="params">(<span class="meta">@RequestBody</span> UmsAdminLoginParam umsAdminLoginParam, BindingResult result)</span> </span>&#123;</span><br><span class="line">        String token = adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());</span><br><span class="line">        <span class="keyword">if</span> (token == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> CommonResult.validateFailed(<span class="string">&quot;用户名或密码错误&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;String, String&gt; tokenMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        tokenMap.put(<span class="string">&quot;token&quot;</span>, token);</span><br><span class="line">        tokenMap.put(<span class="string">&quot;tokenHead&quot;</span>, tokenHead);</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(tokenMap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(&quot;获取用户所有权限（包括+-权限）&quot;)</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/permission/&#123;adminId&#125;&quot;, method = RequestMethod.GET)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="keyword">public</span> CommonResult&lt;List&lt;UmsPermission&gt;&gt; getPermissionList(<span class="meta">@PathVariable</span> Long adminId) &#123;</span><br><span class="line">        List&lt;UmsPermission&gt; permissionList = adminService.getPermissionList(adminId);</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(permissionList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Cron表达式"><a href="#Cron表达式" class="headerlink" title="Cron表达式"></a>Cron表达式</h3><blockquote>
+<p>Cron表达式是一个字符串，包括6~7个时间元素，在SpringTask中可以用于指定任务的执行时间</p>
+</blockquote>
+<h4 id="Cron的语法格式"><a href="#Cron的语法格式" class="headerlink" title="Cron的语法格式"></a>Cron的语法格式</h4><p>Seconds Minutes Hours DayofMonth Month DayofWeek</p>
+<h4 id="Cron格式中每个时间元素的含义"><a href="#Cron格式中每个时间元素的含义" class="headerlink" title="Cron格式中每个时间元素的含义"></a>Cron格式中每个时间元素的含义</h4><table>
+<thead>
+<tr>
+<th>时间元素</th>
+<th>可出现的字符</th>
+<th>有效数值范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Seconds</td>
+<td>, - * /</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td>Minutes</td>
+<td>, - * /</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td>Hours</td>
+<td>, - * /</td>
+<td>0-23</td>
+</tr>
+<tr>
+<td>DayofMonth</td>
+<td>, - * / ? L W</td>
+<td>0-31</td>
+</tr>
+<tr>
+<td>Month</td>
+<td>, - * /</td>
+<td>1-12</td>
+</tr>
+<tr>
+<td>DayofWeek</td>
+<td>, - * / ? L #</td>
+<td>1-7或SUN-SAT</td>
+</tr>
+</tbody></table>
         
       
 
@@ -202,7 +244,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/04/01/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%832-md/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/04/11/SpringBoot%E6%95%B4%E5%90%88SpringTask%E5%AE%9E%E7%8E%B0%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/">展开全文 >></a>
         </p>
       
 
@@ -232,19 +274,88 @@
 
 
   
-    <article id="post-SpringBoot整合SpringSecurity和JWT实现认证和授权" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-SpringBoot整合SpringSecurity和JWT实现认证和授权(二)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/03/25/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">SpringBoot整合SpringSecurity和JWT实现认证和授权</a>
+      <a class="article-title" href="/2021/04/01/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83(%E4%BA%8C)/">SpringBoot整合SpringSecurity和JWT实现认证和授权(二).md</a>
     </h1>
   
 
         
-        <a href="/2021/03/25/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/" class="archive-article-date">
+        <a href="/2021/04/01/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83(%E4%BA%8C)/" class="archive-article-date">
+  	<time datetime="2021-04-01T13:17:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringBoot整合SpringSecurity和JWT实现认证和授权-二"><a href="#SpringBoot整合SpringSecurity和JWT实现认证和授权-二" class="headerlink" title="SpringBoot整合SpringSecurity和JWT实现认证和授权(二)"></a>SpringBoot整合SpringSecurity和JWT实现认证和授权(二)</h1><blockquote>
+<p>接上, controller和service层的代码实现及登录授权流程演示</p>
+</blockquote>
+<h2 id="登入注册功能实现"><a href="#登入注册功能实现" class="headerlink" title="登入注册功能实现"></a>登入注册功能实现</h2><h3 id="添加UmsAdminController类"><a href="#添加UmsAdminController类" class="headerlink" title="添加UmsAdminController类"></a>添加UmsAdminController类</h3><blockquote>
+<p>实现了用户后台登录、注册及获取权限的接口</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.macro.mall.tiny.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.common.api.CommonResult;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.dto.UmsAdminLoginParam;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.mbg.model.UmsAdmin;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.mbg.model.UmsPermission;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.service.UmsAdminService;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.Api;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiOperation;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.validation.BindingResult;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用户后台管理</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: xwm93up</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Since</span>: 2021/4/1 21:21</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span>: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@Api(tags = &quot;UmsAdminController&quot;, description = &quot;后台用户管理&quot;)</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/admin&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UmsAdminController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UmsAdminService adminService;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;jwt.tokenHeader&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String tokenHeader;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;jwt.tokenHead&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String tokenHead;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;用户注册&quot;)</span></span><br><span class="line">    @ </span><br><span class="line">    </span><br><span class="line">    (value = <span class="string">&quot;/register&quot;</span>, method = RequestMethod.POST)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonResult&lt;UmsAdmin&gt; <span class="title">register</span><span class="params">(<span class="meta">@RequestBody</span> UmsAdmin umsAdminParam, BindingResult result)</span> </span>&#123;</span><br><span class="line">        UmsAdmin umsAdmin = adminService.register(umsAdminParam);</span><br><span class="line">        <span class="keyword">if</span> (umsAdmin == <span class="keyword">null</span>) &#123;</span><br><span class="line">            CommonResult.failed();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(umsAdmin);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;登录以后返回token&quot;)</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;, method = RequestMethod.POST)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonResult <span class="title">login</span><span class="params">(<span class="meta">@RequestBody</span> UmsAdminLoginParam umsAdminLoginParam, BindingResult result)</span> </span>&#123;</span><br><span class="line">        String token = adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());</span><br><span class="line">        <span class="keyword">if</span> (token == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> CommonResult.validateFailed(<span class="string">&quot;用户名或密码错误&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;String, String&gt; tokenMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        tokenMap.put(<span class="string">&quot;token&quot;</span>, token);</span><br><span class="line">        tokenMap.put(<span class="string">&quot;tokenHead&quot;</span>, tokenHead);</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(tokenMap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(&quot;获取用户所有权限（包括+-权限）&quot;)</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/permission/&#123;adminId&#125;&quot;, method = RequestMethod.GET)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="keyword">public</span> CommonResult&lt;List&lt;UmsPermission&gt;&gt; getPermissionList(<span class="meta">@PathVariable</span> Long adminId) &#123;</span><br><span class="line">        List&lt;UmsPermission&gt; permissionList = adminService.getPermissionList(adminId);</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(permissionList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/04/01/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83(%E4%BA%8C)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SpringBoot整合SpringSecurity和JWT实现认证和授权(一)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/03/25/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83(%E4%B8%80)/">SpringBoot整合SpringSecurity和JWT实现认证和授权(一)</a>
+    </h1>
+  
+
+        
+        <a href="/2021/03/25/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83(%E4%B8%80)/" class="archive-article-date">
   	<time datetime="2021-03-25T14:32:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-25</time>
 </a>
         
@@ -252,7 +363,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="SpringBoot整合SpringSecurity和JWT实现认证和授权"><a href="#SpringBoot整合SpringSecurity和JWT实现认证和授权" class="headerlink" title="SpringBoot整合SpringSecurity和JWT实现认证和授权"></a>SpringBoot整合SpringSecurity和JWT实现认证和授权</h1><hr>
+        <h1 id="SpringBoot整合SpringSecurity和JWT实现认证和授权-一"><a href="#SpringBoot整合SpringSecurity和JWT实现认证和授权-一" class="headerlink" title="SpringBoot整合SpringSecurity和JWT实现认证和授权(一)"></a>SpringBoot整合SpringSecurity和JWT实现认证和授权(一)</h1><hr>
 <blockquote>
 <p>SpringBoot整合SpringSecurity和JWT实现后台用户的登录和授权功能, 同是改造Swagger-UI的配置使其可以自动记住登录令牌进行发送.</p>
 </blockquote>
@@ -280,7 +391,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/03/25/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/03/25/SpringBoot%E6%95%B4%E5%90%88SpringSecurity%E5%92%8CJWT%E5%AE%9E%E7%8E%B0%E8%AE%A4%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83(%E4%B8%80)/">展开全文 >></a>
         </p>
       
 
