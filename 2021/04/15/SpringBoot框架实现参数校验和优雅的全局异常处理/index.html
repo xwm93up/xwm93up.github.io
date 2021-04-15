@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>SpringBoot框架实现参数Validator校验和优雅的全局异常处理 | 余音未散</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SpringBoot框架实现Validator参数校验和优雅的全局异常处理 日常开发, 特别是一个新项目中, 实现全局异常处理器可以让代码看起来更简洁, 所以异常抛到Controller, 不多逼逼, 直接上代码  添加pom依赖 添加hibernate-validator作为Bean Validation的补充  12345&lt;dependency&gt;    &lt;groupId&amp;gt">
+  <meta name="description" content="SpringBoot框架实现Validator参数校验和优雅的全局异常处理 日常开发, 特别是一个新项目中, 实现全局异常处理器可以让代码看起来更简洁, 所有异常往Controller抛, 也可以灵活的自定义异常返回. 不多逼逼, 直接上代码  添加pom依赖 添加hibernate-validator作为Bean Validation的补充  12345&lt;dependency&gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot框架实现参数Validator校验和优雅的全局异常处理">
 <meta property="og:url" content="http://example.com/2021/04/15/SpringBoot%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C%E5%92%8C%E4%BC%98%E9%9B%85%E7%9A%84%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/index.html">
 <meta property="og:site_name" content="余音未散">
-<meta property="og:description" content="SpringBoot框架实现Validator参数校验和优雅的全局异常处理 日常开发, 特别是一个新项目中, 实现全局异常处理器可以让代码看起来更简洁, 所以异常抛到Controller, 不多逼逼, 直接上代码  添加pom依赖 添加hibernate-validator作为Bean Validation的补充  12345&lt;dependency&gt;    &lt;groupId&amp;gt">
+<meta property="og:description" content="SpringBoot框架实现Validator参数校验和优雅的全局异常处理 日常开发, 特别是一个新项目中, 实现全局异常处理器可以让代码看起来更简洁, 所有异常往Controller抛, 也可以灵活的自定义异常返回. 不多逼逼, 直接上代码  添加pom依赖 添加hibernate-validator作为Bean Validation的补充  12345&lt;dependency&gt;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%92%8C%E5%8F%82%E6%95%B0%E6%A0%A1%E9%AA%8C.png">
 <meta property="article:published_time" content="2021-04-15T14:33:58.000Z">
-<meta property="article:modified_time" content="2021-04-15T15:14:18.347Z">
+<meta property="article:modified_time" content="2021-04-15T15:18:51.512Z">
 <meta property="article:author" content="xwm93">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -186,7 +186,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="SpringBoot框架实现Validator参数校验和优雅的全局异常处理"><a href="#SpringBoot框架实现Validator参数校验和优雅的全局异常处理" class="headerlink" title="SpringBoot框架实现Validator参数校验和优雅的全局异常处理"></a>SpringBoot框架实现Validator参数校验和优雅的全局异常处理</h1><blockquote>
-<p>日常开发, 特别是一个新项目中, 实现全局异常处理器可以让代码看起来更简洁, 所以异常抛到Controller, 不多逼逼, 直接上代码</p>
+<p>日常开发, 特别是一个新项目中, 实现全局异常处理器可以让代码看起来更简洁, 所有异常往Controller抛, 也可以灵活的自定义异常返回. 不多逼逼, 直接上代码</p>
 </blockquote>
 <h2 id="添加pom依赖"><a href="#添加pom依赖" class="headerlink" title="添加pom依赖"></a>添加pom依赖</h2><blockquote>
 <p>添加hibernate-validator作为Bean Validation的补充</p>
