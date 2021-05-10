@@ -163,6 +163,86 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-SpringBoot整合Elasticsearch实现商品搜索" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/05/10/SpringBoot%E6%95%B4%E5%90%88Elasticsearch%E5%AE%9E%E7%8E%B0%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2/">SpringBoot整合Elasticsearch实现商品搜索</a>
+    </h1>
+  
+
+        
+        <a href="/2021/05/10/SpringBoot%E6%95%B4%E5%90%88Elasticsearch%E5%AE%9E%E7%8E%B0%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2/" class="archive-article-date">
+  	<time datetime="2021-05-10T14:04:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SpringBoot整合Elasticsearch实现商品搜索"><a href="#SpringBoot整合Elasticsearch实现商品搜索" class="headerlink" title="SpringBoot整合Elasticsearch实现商品搜索"></a>SpringBoot整合Elasticsearch实现商品搜索</h1><blockquote>
+<p>本文主要讲述以SpringBoot工程为例, 整合Elasticsearch的过程, 实现商品信息在Elasticsearch中的导入、查询、修改、删除为例</p>
+</blockquote>
+<h2 id="项目使用框架介绍"><a href="#项目使用框架介绍" class="headerlink" title="项目使用框架介绍"></a>项目使用框架介绍</h2><h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><blockquote>
+<p>Elasticsearch 是一个分布式、可扩展、实时的搜索与数据分析引擎。 它能从项目一开始就赋予你的数据以搜索、分析和探索的能力，可用于实现全文搜索和实时数据统计。</p>
+</blockquote>
+<h4 id="Elasticsearch的安装和使用"><a href="#Elasticsearch的安装和使用" class="headerlink" title="Elasticsearch的安装和使用"></a>Elasticsearch的安装和使用</h4><ol>
+<li>下载Elasticsearch6.2.2的zip包，并解压到指定目录，下载地址：<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-2-2">https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-2-2</a></li>
+</ol>
+<p><img src="/images/es_dl_local.png"></p>
+<ol start="2">
+<li>安装中文分词插件，在elasticsearch-6.2.2\bin目录下执行以下命令：elasticsearch-plugin install <a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip">https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip</a></li>
+</ol>
+<p><img src="/image/ik-622.png"></p>
+<ol start="3">
+<li>运行bin目录下的elasticsearch.bat启动Elasticsearch</li>
+</ol>
+<p><img src="/images/es_start.png"></p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/05/10/SpringBoot%E6%95%B4%E5%90%88Elasticsearch%E5%AE%9E%E7%8E%B0%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-SpringBoot框架实现参数校验和优雅的全局异常处理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
