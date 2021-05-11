@@ -17,9 +17,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/tiny-jwt01.png">
 <meta property="article:published_time" content="2021-03-25T14:32:15.000Z">
-<meta property="article:modified_time" content="2021-04-11T04:33:24.898Z">
+<meta property="article:modified_time" content="2021-05-11T16:06:06.606Z">
 <meta property="article:author" content="xwm93">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="sbt+SpringSecurity+JWT">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/tiny-jwt01.png">
   
@@ -205,12 +205,14 @@
 <h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><blockquote>
 <p>JWT是JSON WEB TOKEN的缩写, 他是基于RFC 7519标准定义的一种可以安全传输的JSON对象, 由于使用了数字签名, 所以是可信任和安全的.</p>
 </blockquote>
+<a id="more"></a>
+
 <h4 id="JWT的组成"><a href="#JWT的组成" class="headerlink" title="JWT的组成"></a>JWT的组成</h4><ul>
 <li>JWT token的格式: header.payload.signature</li>
 <li>header中用于存放签名的生成算法<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;alg&quot;</span>: <span class="string">&quot;HS512&quot;</span>&#125;</span><br></pre></td></tr></table></figure></li>
 <li> ayload中用于存放用户名、token的生成时间和过期时间<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;sub&quot;</span>:<span class="string">&quot;admin&quot;</span>,<span class="attr">&quot;created&quot;</span>:<span class="number">1489079981393</span>,<span class="attr">&quot;exp&quot;</span>:<span class="number">1489684781</span>&#125;</span><br></pre></td></tr></table></figure></li>
 <li>signature为header和payload生成的签名, 一旦header和payload被篡改, 验证失败<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//secret为加密算法的密钥</span></span><br><span class="line">String signature = HMACSHA512(base64UrlEncode(header) + &quot;.&quot; +base64UrlEncode(payload),secret)</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+<!-- more -->
 
 </li>
 </ul>
@@ -283,6 +285,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">sbt+SpringSecurity+JWT</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -495,6 +508,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SpringBoot+MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sbt+Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">sbt+SpringSecurity+JWT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sbt+SpringTask</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">sbt+Swagger</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">全局异常处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SpringBoot+ES</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

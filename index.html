@@ -198,18 +198,7 @@
 <h2 id="项目使用框架介绍"><a href="#项目使用框架介绍" class="headerlink" title="项目使用框架介绍"></a>项目使用框架介绍</h2><h3 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h3><blockquote>
 <p>Elasticsearch 是一个分布式、可扩展、实时的搜索与数据分析引擎。 它能从项目一开始就赋予你的数据以搜索、分析和探索的能力，可用于实现全文搜索和实时数据统计。</p>
 </blockquote>
-<h4 id="Elasticsearch的安装和使用"><a href="#Elasticsearch的安装和使用" class="headerlink" title="Elasticsearch的安装和使用"></a>Elasticsearch的安装和使用</h4><ol>
-<li>下载Elasticsearch6.2.2的zip包，并解压到指定目录，下载地址：<a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-2-2">https://www.elastic.co/cn/downloads/past-releases/elasticsearch-6-2-2</a></li>
-</ol>
-<p><img src="/images/arch_screen_25.png"></p>
-<ol start="2">
-<li>安装中文分词插件，在elasticsearch-6.2.2\bin目录下执行以下命令：elasticsearch-plugin install <a target="_blank" rel="noopener" href="https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip">https://github.com/medcl/elasticsearch-analysis-ik/releases/download/v6.2.2/elasticsearch-analysis-ik-6.2.2.zip</a></li>
-</ol>
-<p><img src="/images/arch_screen_26.png"></p>
-<ol start="3">
-<li>运行bin目录下的elasticsearch.bat启动Elasticsearch</li>
-</ol>
-<p><img src="/images/arch_screen_27.png"></p>
+<h4 id="Elasticsearch的安装和使用"><a href="#Elasticsearch的安装和使用" class="headerlink" title="Elasticsearch的安装和使用"></a>Elasticsearch的安装和使用</h4>
         
       
 
@@ -218,6 +207,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SpringBoot+ES</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -279,25 +279,7 @@
 <p>添加hibernate-validator作为Bean Validation的补充</p>
 </blockquote>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.hibernate<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hibernate-validator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>6.1.0.Final<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="springboot中常用的用于参数校验的注解"><a href="#springboot中常用的用于参数校验的注解" class="headerlink" title="springboot中常用的用于参数校验的注解"></a>springboot中常用的用于参数校验的注解</h2><ul>
-<li>@AssertFalse 所注解的元素必须是Boolean类型，且值为false</li>
-<li>@AssertTrue 所注解的元素必须是Boolean类型，且值为true</li>
-<li>@DecimalMax 所注解的元素必须是数字，且值小于等于给定的值</li>
-<li>@DecimalMin 所注解的元素必须是数字，且值大于等于给定的值</li>
-<li>@Digits 所注解的元素必须是数字，且值必须是指定的位数</li>
-<li>@Future 所注解的元素必须是将来某个日期</li>
-<li>@Max 所注解的元素必须是数字，且值小于等于给定的值</li>
-<li>@Min 所注解的元素必须是数字，且值小于等于给定的值</li>
-<li>@Range 所注解的元素需在指定范围区间内</li>
-<li>@NotNull 所注解的元素值不能为null</li>
-<li>@NotBlank 所注解的元素值有内容</li>
-<li>@Null 所注解的元素值为null</li>
-<li>@Past 所注解的元素必须是某个过去的日期</li>
-<li>@PastOrPresent 所注解的元素必须是过去某个或现在日期</li>
-<li>@Pattern 所注解的元素必须满足给定的正则表达式</li>
-<li>@Size 所注解的元素必须是String、集合或数组，且长度大小需保证在给定范围之内</li>
-<li>@Email 所注解的元素需满足Email格式</li>
-</ul>
+<h2 id="springboot中常用的用于参数校验的注解"><a href="#springboot中常用的用于参数校验的注解" class="headerlink" title="springboot中常用的用于参数校验的注解"></a>springboot中常用的用于参数校验的注解</h2>
         
       
 
@@ -306,6 +288,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">全局异常处理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -370,45 +363,6 @@
 <p>Cron表达式是一个字符串，包括6~7个时间元素，在SpringTask中可以用于指定任务的执行时间</p>
 </blockquote>
 <h4 id="Cron的语法格式"><a href="#Cron的语法格式" class="headerlink" title="Cron的语法格式"></a>Cron的语法格式</h4><p>Seconds Minutes Hours DayofMonth Month DayofWeek</p>
-<h4 id="Cron格式中每个时间元素的含义"><a href="#Cron格式中每个时间元素的含义" class="headerlink" title="Cron格式中每个时间元素的含义"></a>Cron格式中每个时间元素的含义</h4><table>
-<thead>
-<tr>
-<th>时间元素</th>
-<th>可出现的字符</th>
-<th>有效数值范围</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Seconds</td>
-<td>, - * /</td>
-<td>0-59</td>
-</tr>
-<tr>
-<td>Minutes</td>
-<td>, - * /</td>
-<td>0-59</td>
-</tr>
-<tr>
-<td>Hours</td>
-<td>, - * /</td>
-<td>0-23</td>
-</tr>
-<tr>
-<td>DayofMonth</td>
-<td>, - * / ? L W</td>
-<td>0-31</td>
-</tr>
-<tr>
-<td>Month</td>
-<td>, - * /</td>
-<td>1-12</td>
-</tr>
-<tr>
-<td>DayofWeek</td>
-<td>, - * / ? L #</td>
-<td>1-7或SUN-SAT</td>
-</tr>
-</tbody></table>
         
       
 
@@ -417,6 +371,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sbt+SpringTask</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -474,10 +439,7 @@
         <h1 id="SpringBoot整合SpringSecurity和JWT实现认证和授权-二"><a href="#SpringBoot整合SpringSecurity和JWT实现认证和授权-二" class="headerlink" title="SpringBoot整合SpringSecurity和JWT实现认证和授权(二)"></a>SpringBoot整合SpringSecurity和JWT实现认证和授权(二)</h1><blockquote>
 <p>接上, controller和service层的代码实现及登录授权流程演示</p>
 </blockquote>
-<h2 id="登入注册功能实现"><a href="#登入注册功能实现" class="headerlink" title="登入注册功能实现"></a>登入注册功能实现</h2><h3 id="添加UmsAdminController类"><a href="#添加UmsAdminController类" class="headerlink" title="添加UmsAdminController类"></a>添加UmsAdminController类</h3><blockquote>
-<p>实现了用户后台登录、注册及获取权限的接口</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.macro.mall.tiny.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.common.api.CommonResult;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.dto.UmsAdminLoginParam;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.mbg.model.UmsAdmin;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.mbg.model.UmsPermission;</span><br><span class="line"><span class="keyword">import</span> com.macro.mall.tiny.service.UmsAdminService;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.Api;</span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiOperation;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.validation.BindingResult;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestBody;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用户后台管理</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: xwm93up</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Since</span>: 2021/4/1 21:21</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span>: 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@Api(tags = &quot;UmsAdminController&quot;, description = &quot;后台用户管理&quot;)</span></span><br><span class="line"><span class="meta">@RequestMapping(&quot;/admin&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UmsAdminController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UmsAdminService adminService;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;jwt.tokenHeader&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String tokenHeader;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;jwt.tokenHead&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String tokenHead;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;用户注册&quot;)</span></span><br><span class="line">    @ </span><br><span class="line">    </span><br><span class="line">    (value = <span class="string">&quot;/register&quot;</span>, method = RequestMethod.POST)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonResult&lt;UmsAdmin&gt; <span class="title">register</span><span class="params">(<span class="meta">@RequestBody</span> UmsAdmin umsAdminParam, BindingResult result)</span> </span>&#123;</span><br><span class="line">        UmsAdmin umsAdmin = adminService.register(umsAdminParam);</span><br><span class="line">        <span class="keyword">if</span> (umsAdmin == <span class="keyword">null</span>) &#123;</span><br><span class="line">            CommonResult.failed();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(umsAdmin);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(value = &quot;登录以后返回token&quot;)</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/login&quot;, method = RequestMethod.POST)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> CommonResult <span class="title">login</span><span class="params">(<span class="meta">@RequestBody</span> UmsAdminLoginParam umsAdminLoginParam, BindingResult result)</span> </span>&#123;</span><br><span class="line">        String token = adminService.login(umsAdminLoginParam.getUsername(), umsAdminLoginParam.getPassword());</span><br><span class="line">        <span class="keyword">if</span> (token == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> CommonResult.validateFailed(<span class="string">&quot;用户名或密码错误&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;String, String&gt; tokenMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        tokenMap.put(<span class="string">&quot;token&quot;</span>, token);</span><br><span class="line">        tokenMap.put(<span class="string">&quot;tokenHead&quot;</span>, tokenHead);</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(tokenMap);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiOperation(&quot;获取用户所有权限（包括+-权限）&quot;)</span></span><br><span class="line">    <span class="meta">@RequestMapping(value = &quot;/permission/&#123;adminId&#125;&quot;, method = RequestMethod.GET)</span></span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="keyword">public</span> CommonResult&lt;List&lt;UmsPermission&gt;&gt; getPermissionList(<span class="meta">@PathVariable</span> Long adminId) &#123;</span><br><span class="line">        List&lt;UmsPermission&gt; permissionList = adminService.getPermissionList(adminId);</span><br><span class="line">        <span class="keyword">return</span> CommonResult.success(permissionList);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="登入注册功能实现"><a href="#登入注册功能实现" class="headerlink" title="登入注册功能实现"></a>登入注册功能实现</h2><h3 id="添加UmsAdminController类"><a href="#添加UmsAdminController类" class="headerlink" title="添加UmsAdminController类"></a>添加UmsAdminController类</h3>
         
       
 
@@ -486,6 +448,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">sbt+SpringSecurity+JWT</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -551,11 +524,6 @@
 <h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><blockquote>
 <p>JWT是JSON WEB TOKEN的缩写, 他是基于RFC 7519标准定义的一种可以安全传输的JSON对象, 由于使用了数字签名, 所以是可信任和安全的.</p>
 </blockquote>
-<h4 id="JWT的组成"><a href="#JWT的组成" class="headerlink" title="JWT的组成"></a>JWT的组成</h4><ul>
-<li>JWT token的格式: header.payload.signature</li>
-<li>header中用于存放签名的生成算法<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;alg&quot;</span>: <span class="string">&quot;HS512&quot;</span>&#125;</span><br></pre></td></tr></table></figure></li>
-<li> ayload中用于存放用户名、token的生成时间和过期时间<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">&quot;sub&quot;</span>:<span class="string">&quot;admin&quot;</span>,<span class="attr">&quot;created&quot;</span>:<span class="number">1489079981393</span>,<span class="attr">&quot;exp&quot;</span>:<span class="number">1489684781</span>&#125;</span><br></pre></td></tr></table></figure></li>
-<li>signature为header和payload生成的签名, 一旦header和payload被篡改, 验证失败<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//secret为加密算法的密钥</span></span><br><span class="line">String signature = HMACSHA512(base64UrlEncode(header) + &quot;.&quot; +base64UrlEncode(payload),secret)</span><br></pre></td></tr></table></figure>
         
       
 
@@ -564,6 +532,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">sbt+SpringSecurity+JWT</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -620,7 +599,7 @@
       
         <h1 id="SpringBoot整合Redis实现缓存功能"><a href="#SpringBoot整合Redis实现缓存功能" class="headerlink" title="SpringBoot整合Redis实现缓存功能"></a>SpringBoot整合Redis实现缓存功能</h1><hr>
 <blockquote>
-<p>本文讲解SpringBoot整合Redis的过程, 以短信验证码的存储验证为例子.</p>
+<p>记录SpringBoot整合Redis的过程, 以短信验证码的存储验证为例子.</p>
 </blockquote>
 <h2 id="Redis的简单介绍和下载地址"><a href="#Redis的简单介绍和下载地址" class="headerlink" title="Redis的简单介绍和下载地址"></a>Redis的简单介绍和下载地址</h2><hr>
 <blockquote>
@@ -642,6 +621,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sbt+Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -715,6 +705,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">sbt+Swagger</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -779,10 +780,6 @@
 <p>MyBatis分页插件，简单的几行代码就能实现分页，在与SpringBoot整合时，只要整合了PagerHelper就自动整合了MyBatis。</p>
 </blockquote>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PageHelper.startPage(pageNum, pageSize);</span><br><span class="line"><span class="comment">// 之后进行查询操作将自动进行分页</span></span><br><span class="line">List&lt;PmsBrand&gt; brandList = brandMapper.selectByExample(<span class="keyword">new</span> PmsBrandExample());</span><br><span class="line"><span class="comment">// 通过构造PageInfo对象获取分页信息，如当前页码，总页数，总条数</span></span><br><span class="line">PageInfo&lt;PmsBrand&gt; pageInfo = <span class="keyword">new</span> PageInfo&lt;PmsBrand&gt;(list);</span><br></pre></td></tr></table></figure>
-
-<h3 id="Mybatis-generator"><a href="#Mybatis-generator" class="headerlink" title="Mybatis generator"></a>Mybatis generator</h3><blockquote>
-<p>MyBatis的代码生成器，可以根据数据库生成model、mapper.xml、mapper接口和Example，通常情况下的单表查询不用再手写mapper。</p>
-</blockquote>
         
       
 
@@ -791,6 +788,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SpringBoot+MyBatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -916,6 +924,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SpringBoot+MyBatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sbt+Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">sbt+SpringSecurity+JWT</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">sbt+SpringTask</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">sbt+Swagger</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">全局异常处理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SpringBoot+ES</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
