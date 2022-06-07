@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>关于枚举的集合类 | 逃不开夏天</title>
+  <title>解决日志时间和服务器系统时间差8小时 | 逃不开夏天</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="对于枚举, 它也有专门的集合类：EnumSet和EnumMap">
+  <meta name="description" content="日志时间和服务器时间对不上的解决方法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="关于枚举的集合类">
-<meta property="og:url" content="http://example.com/2021/11/30/%E5%85%B3%E4%BA%8E%E6%9E%9A%E4%B8%BE%E7%9A%84%E9%9B%86%E5%90%88%E7%B1%BB/index.html">
+<meta property="og:title" content="解决日志时间和服务器系统时间差8小时">
+<meta property="og:url" content="http://example.com/2022/06/07/%E8%A7%A3%E5%86%B3%E6%97%A5%E5%BF%97%E6%97%B6%E9%97%B4%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E5%B7%AE8%E5%B0%8F%E6%97%B6/index.html">
 <meta property="og:site_name" content="逃不开夏天">
-<meta property="og:description" content="对于枚举, 它也有专门的集合类：EnumSet和EnumMap">
+<meta property="og:description" content="日志时间和服务器时间对不上的解决方法">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-11-30T08:51:32.000Z">
-<meta property="article:modified_time" content="2021-12-22T15:39:40.574Z">
+<meta property="article:published_time" content="2022-06-07T01:58:19.000Z">
+<meta property="article:modified_time" content="2022-06-07T02:19:45.360Z">
 <meta property="article:author" content="xwm93">
-<meta property="article:tag" content="枚举">
+<meta property="article:tag" content="服务部署">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="逃不开夏天" type="application/atom+xml">
@@ -171,36 +171,53 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-关于枚举的集合类" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-解决日志时间和服务器系统时间差8小时" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      关于枚举的集合类
+      解决日志时间和服务器系统时间差8小时
     </h1>
   
 
         
-        <a href="/2021/11/30/%E5%85%B3%E4%BA%8E%E6%9E%9A%E4%B8%BE%E7%9A%84%E9%9B%86%E5%90%88%E7%B1%BB/" class="archive-article-date">
-  	<time datetime="2021-11-30T08:51:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-30</time>
+        <a href="/2022/06/07/%E8%A7%A3%E5%86%B3%E6%97%A5%E5%BF%97%E6%97%B6%E9%97%B4%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E5%B7%AE8%E5%B0%8F%E6%97%B6/" class="archive-article-date">
+  	<time datetime="2022-06-07T01:58:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>对于枚举, 它也有专门的集合类：<code>EnumSet</code>和<code>EnumMap</code></p>
+        <p>日志时间和服务器时间对不上的解决方法</p>
 <span id="more"></span>
 
-<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">UserRole</span> </span>&#123;</span><br><span class="line">    ROLE_ROOT_ADMIN(<span class="string">&quot;系统管理员&quot;</span>, <span class="number">000000</span>), <span class="comment">// 系统管理员</span></span><br><span class="line">    ROLE_ORDER_ADMIN(<span class="string">&quot;订单管理员&quot;</span>, <span class="number">100000</span>), <span class="comment">// 订单管理员</span></span><br><span class="line">    ROLE_NORMAL(<span class="string">&quot;普通用户&quot;</span>, <span class="number">200000</span>) <span class="comment">//普通用户</span></span><br><span class="line">    ;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 自定义属性</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String roleName; <span class="comment">// 角色名称</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Integer roleCode; <span class="comment">// 角色编码</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 自定义构造函数</span></span><br><span class="line">    UserRole(String roleName, Integer roleCode) &#123;</span><br><span class="line">        <span class="keyword">this</span>.roleName = roleName;</span><br><span class="line">        <span class="keyword">this</span>.roleCode = roleCode;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里用的docker容器部署Java Web服务</p>
+</blockquote>
+<h3 id="1-设置服务器时区"><a href="#1-设置服务器时区" class="headerlink" title="1.设置服务器时区"></a>1.设置服务器时区</h3><ul>
+<li>修改etc目录下的profile文件</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/profile</span><br></pre></td></tr></table></figure>
 
-<h2 id="EnumSet"><a href="#EnumSet" class="headerlink" title="EnumSet"></a>EnumSet</h2><p>判断用户是不是管理员</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnumSetTest</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 定义一个管理员角色的专属集合</span></span><br><span class="line">    <span class="keyword">static</span> EnumSet&lt;UserRole&gt; userRoles = EnumSet.of(</span><br><span class="line">            UserRole.ROLE_ROOT_ADMIN,</span><br><span class="line">            UserRole.ROLE_ORDER_ADMIN</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断某个进来的用户是不是管理员</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> Boolean <span class="title">isAdmin</span><span class="params">(User user)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (userRoles.contains(user.getUserRole())) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setUserRole(UserRole.ROLE_ROOT_ADMIN);</span><br><span class="line">        <span class="keyword">final</span> Boolean admin = isAdmin(user);</span><br><span class="line">        System.out.println(admin);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在文件末尾增加一行， 然后保存</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export TZ=&#x27;Asia/Shanghai&#x27;</span><br></pre></td></tr></table></figure>
 
-<h2 id="EnumMap"><a href="#EnumMap" class="headerlink" title="EnumMap"></a>EnumMap</h2><p>统计不同角色多少人</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EnumMapTest</span> </span>&#123;</span><br><span class="line">    EnumMap&lt;UserRole, Integer&gt; userStatisticsMap = <span class="keyword">new</span> EnumMap&lt;UserRole, Integer&gt;(UserRole.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 统计</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">statistics</span><span class="params">(List&lt;User&gt; users)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (User user : users) &#123;</span><br><span class="line">            Integer num = userStatisticsMap.get(user.getUserRole());</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != num) &#123;</span><br><span class="line">                userStatisticsMap.put(user.getUserRole(), num + <span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                userStatisticsMap.put(user.getUserRole(), <span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2-让修改的文件生效"><a href="#2-让修改的文件生效" class="headerlink" title="2.让修改的文件生效"></a>2.让修改的文件生效</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3-使用date-R命令查看服务器时间和系统时间是否一致"><a href="#3-使用date-R命令查看服务器时间和系统时间是否一致" class="headerlink" title="3.使用date -R命令查看服务器时间和系统时间是否一致"></a>3.使用<code>date -R</code>命令查看服务器时间和系统时间是否一致</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@57021d0c3a90 ~]# date -R</span><br><span class="line">Tue, 07 Jun 2022 10:12:26 +0800</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-重启项目"><a href="#4-重启项目" class="headerlink" title="4.重启项目"></a>4.重启项目</h3>
       
 
       
@@ -234,7 +251,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">枚举</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">服务部署</a>
         		</li>
       		
 		</ul>
@@ -290,7 +307,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/11/30/%E5%85%B3%E4%BA%8E%E6%9E%9A%E4%B8%BE%E7%9A%84%E9%9B%86%E5%90%88%E7%B1%BB/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/06/07/%E8%A7%A3%E5%86%B3%E6%97%A5%E5%BF%97%E6%97%B6%E9%97%B4%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E5%B7%AE8%E5%B0%8F%E6%97%B6/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -304,18 +321,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/12/01/jasypt%E9%81%87%E5%88%B0%E5%8A%A0%E5%AF%86%E5%BC%BA%E5%BA%A6%E5%8F%97%E9%99%90/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          jasypt遇到加密强度受限
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/11/30/%E6%9E%9A%E4%B8%BE%E5%92%8C%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">枚举和策略模式</div>
+    <a href="/2022/06/06/SpringBoot%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%89%93%E5%8C%85/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringBoot多环境配置打包</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -342,7 +350,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B"><span class="toc-number">1.</span> <span class="toc-text">举例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EnumSet"><span class="toc-number">2.</span> <span class="toc-text">EnumSet</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EnumMap"><span class="toc-number">3.</span> <span class="toc-text">EnumMap</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E8%AE%BE%E7%BD%AE%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E5%8C%BA"><span class="toc-number">1.</span> <span class="toc-text">1.设置服务器时区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%AE%A9%E4%BF%AE%E6%94%B9%E7%9A%84%E6%96%87%E4%BB%B6%E7%94%9F%E6%95%88"><span class="toc-number">2.</span> <span class="toc-text">2.让修改的文件生效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8date-R%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E5%92%8C%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E6%98%AF%E5%90%A6%E4%B8%80%E8%87%B4"><span class="toc-number">3.</span> <span class="toc-text">3.使用date -R命令查看服务器时间和系统时间是否一致</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E9%87%8D%E5%90%AF%E9%A1%B9%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">4.重启项目</span></a></li></ol>
                     </div>
                 </span>
             </div>
