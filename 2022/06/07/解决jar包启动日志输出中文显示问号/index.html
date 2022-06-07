@@ -6,25 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Spring令人混淆的Factory | 逃不开夏天</title>
+  <title>解决jar包启动日志输出中文显示问号 | 逃不开夏天</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="BeanFactory 、FactoryBean、ObjectFactory、ObjectFactory、ApplicationContext 的区别?">
+  <meta name="description" content="在linux下启动jar包，解决日志输出中文变成问号。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring令人混淆的Factory">
-<meta property="og:url" content="http://example.com/2022/04/19/Spring%E4%BB%A4%E4%BA%BA%E6%B7%B7%E6%B7%86%E7%9A%84Factory/index.html">
+<meta property="og:title" content="解决jar包启动日志输出中文显示问号">
+<meta property="og:url" content="http://example.com/2022/06/07/%E8%A7%A3%E5%86%B3jar%E5%8C%85%E5%90%AF%E5%8A%A8%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87%E6%98%BE%E7%A4%BA%E9%97%AE%E5%8F%B7/index.html">
 <meta property="og:site_name" content="逃不开夏天">
-<meta property="og:description" content="BeanFactory 、FactoryBean、ObjectFactory、ObjectFactory、ApplicationContext 的区别?">
+<meta property="og:description" content="在linux下启动jar包，解决日志输出中文变成问号。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220419152138.png">
-<meta property="og:image" content="http://example.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220420173259.png">
-<meta property="og:image" content="http://example.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220420174339.png">
-<meta property="og:image" content="http://example.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220420174835.png">
-<meta property="article:published_time" content="2022-04-19T06:22:08.000Z">
-<meta property="article:modified_time" content="2022-05-19T08:48:16.150Z">
+<meta property="article:published_time" content="2022-06-07T03:01:08.000Z">
+<meta property="article:modified_time" content="2022-06-07T03:08:39.956Z">
 <meta property="article:author" content="xwm93">
-<meta property="article:tag" content="Spring面试题">
+<meta property="article:tag" content="服务部署">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220419152138.png">
   
     <link rel="alternative" href="/atom.xml" title="逃不开夏天" type="application/atom+xml">
   
@@ -176,83 +171,33 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Spring令人混淆的Factory" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-解决jar包启动日志输出中文显示问号" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Spring令人混淆的Factory
+      解决jar包启动日志输出中文显示问号
     </h1>
   
 
         
-        <a href="/2022/04/19/Spring%E4%BB%A4%E4%BA%BA%E6%B7%B7%E6%B7%86%E7%9A%84Factory/" class="archive-article-date">
-  	<time datetime="2022-04-19T06:22:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-19</time>
+        <a href="/2022/06/07/%E8%A7%A3%E5%86%B3jar%E5%8C%85%E5%90%AF%E5%8A%A8%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87%E6%98%BE%E7%A4%BA%E9%97%AE%E5%8F%B7/" class="archive-article-date">
+  	<time datetime="2022-06-07T03:01:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>BeanFactory</strong> 、<strong>FactoryBean</strong>、<strong>ObjectFactory</strong>、<strong>ObjectFactory</strong>、<strong>ApplicationContext</strong> 的区别?</p>
+        <p>在linux下启动jar包，解决日志输出中文变成问号。</p>
 <span id="more"></span>
 
-<h1 id="BeanFactory"><a href="#BeanFactory" class="headerlink" title="BeanFactory"></a>BeanFactory</h1><p>BeanFactory 其实就是IOC的底层容器。</p>
-<p>我们都说Spring是IOC容器。说的再直白点，其实就是Bean的工厂， 他帮我们生产和管理Bean，<br>如果我们需要Bean就从工厂拿到Bean，所以再来理解BeanFactory这个名字， 就知晓他就是Spring的核心。</p>
-<p>例如我们调用getBean，就是BeanFactory定义的方法，通过它得到Bean。<br>不过一般我们所述的BeanFactory指的是他得实现类，例如DefaultListableBeanFactory。<br>BeanFactory本身只是一个接口。</p>
-<h1 id="FactoryBean"><a href="#FactoryBean" class="headerlink" title="FactoryBean"></a>FactoryBean</h1><p>从命名角度来看，我们可以得知它就是一个Bean， 而不是一个工厂。<br>那为什么去如此奇怪的名字呢？他其实是一个接口，并且有一下几个方法</p>
-<p><img src="/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220419152138.png" alt="微信图片_20220419152138"></p>
-<p>如果一个对象实现了这个接口，那它就成为一种<strong>特殊的Bean</strong>，注册到IOC容器之后，如果</p>
-<p>调用getBean获取得到的其实是FactoryBean#getObject()方法返回的结果。</p>
-<p>为什么要这样做？</p>
-<p>假设你依赖一个第三方的类A，而我们又不能修改第三方类，并且这个对象创建比较复杂，</p>
-<p>那么你可以创建一个bean来封装它：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AFactoryBean</span> <span class="keyword">implements</span> <span class="title">FactoryBean</span>&lt;<span class="title">A</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> A <span class="title">getObject</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        A a = <span class="keyword">new</span> A();</span><br><span class="line">        a.setXXX</span><br><span class="line">        ....</span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">return</span> A</span><br><span class="line">    &#125;</span><br><span class="line">    ....省略一些实现</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="1-原启动命令"><a href="#1-原启动命令" class="headerlink" title="1.原启动命令"></a>1.原启动命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -jar -Xms256m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m riskperceive-admin.jar &gt;&gt; riskperceive-admin.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
 
-<p>这样，我们getBean(“A”会得到AFactoryBean#getObject的结果。</p>
-<p>如果单纯只想要AFactonryBean，那么加个”&amp;”即可， 即</p>
-<p>getBean(“&amp;A”);</p>
-<h1 id="ObjectFactory"><a href="#ObjectFactory" class="headerlink" title="ObjectFactory"></a>ObjectFactory</h1><p>从命名角度来看，他是一个工厂。</p>
-<p><img src="/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220420173259.png" alt="微信图片_20220420173259"></p>
-<p>在Spring的循环依赖中就会用到它，三级缓存的map里面存储的就是ObjectFactory，用于</p>
-<p>延迟代理对象的创建。</p>
-<p>其实就是封装对象的创建过程，像三级缓存里的ObjectFactory逻辑就是判断这个Bean是否</p>
-<p>有代理，如果有则返回代理对象，没有则返回原来传入的对象。</p>
-<h1 id="ApplicationContext"><a href="#ApplicationContext" class="headerlink" title="ApplicationContext"></a>ApplicationContext</h1><p>ApplicationContext对我们来说应该很熟悉，我们基本上都是基于ApplicationContext操作的。</p>
-<p>它也是实现了BeanFactory这个接口，也属于一个BeanFactory，但是它内部还包装了一个</p>
-<p>BeanFactory的实现。</p>
-<p>而关于Spring Beans的一些操作都是委托内部的BeanFactory来操作的。</p>
-<p><img src="/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220420174339.png" alt="微信图片_20220420174339"></p>
-<p>所以它有BeanFactory的所有功能，并且基于此功能它还扩展了很多其他功能：</p>
-<ul>
-<li>AOP</li>
-<li>国际化</li>
-<li>资源管理</li>
-<li>事件</li>
-<li>注解</li>
-<li>等</li>
-</ul>
-<p>因此，我们开发直接用的肯定是ApplicationContext而不是BeanFactory。</p>
-<h1 id="Bean一共有几种作用域"><a href="#Bean一共有几种作用域" class="headerlink" title="Bean一共有几种作用域"></a>Bean一共有几种作用域</h1><p>从官网我们很容易得知，最新版本一共有六种作用域：</p>
-<p><img src="/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20220420174835.png" alt="微信图片_20220420174835"></p>
-<ul>
-<li>singleton：默认是单例模式，一个IOC容器内部仅此一个。</li>
-<li>prototype：原型， 多实例。</li>
-<li>request：每次请求都会创建一个属于自己的Bean实例，这种作用域仅存在Spring Web应用中。</li>
-<li>session：一个http session中有一个bean的实例，这种作用域仅存在Spring Web应用中。</li>
-<li>application：整个ServletContext生命周期里， 只有一个bean，这种作用域仅存在Spring Web应用中。</li>
-<li>websocket：一个websocket生命周期内只有一个bean实例，这种作用域仅存在Spring Web应用中。</li>
-</ul>
-<h1 id="Spring一共有几种注入方式"><a href="#Spring一共有几种注入方式" class="headerlink" title="Spring一共有几种注入方式"></a>Spring一共有几种注入方式</h1><ul>
-<li>构造器注入，Spring倡导构造器函数注入，因为构造器注入返回给客户端使用的时候一定是完整的。</li>
-<li>setter注入，可先的注入方式，好处是在有变更的情况下，可以重新注入。</li>
-<li>字段注入，就是平时我们使用的@Autowired标记字段。</li>
-<li>接口回调注入，就是实现Spring定义的一些内建接口，例如BeanFactoryAware，会进行BeanFactory的注入。</li>
-</ul>
-<p>官方不推荐字段注入</p>
-<p>应为字段注入依赖注解，然后无法注入静态字段，无法控制成员变量注入顺序。</p>
+<h3 id="2-在命令中增加-Dfile-encoding-utf-8"><a href="#2-在命令中增加-Dfile-encoding-utf-8" class="headerlink" title="2.在命令中增加-Dfile.encoding=utf-8"></a>2.在命令中增加<code>-Dfile.encoding=utf-8</code></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup java -Dfile.encoding=utf-8 -jar -Xms256m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m riskperceive-admin.jar &gt;&gt; riskperceive-admin.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
 
       
 
@@ -287,7 +232,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Spring面试题</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">服务部署</a>
         		</li>
       		
 		</ul>
@@ -343,7 +288,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/04/19/Spring%E4%BB%A4%E4%BA%BA%E6%B7%B7%E6%B7%86%E7%9A%84Factory/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/06/07/%E8%A7%A3%E5%86%B3jar%E5%8C%85%E5%90%AF%E5%8A%A8%E6%97%A5%E5%BF%97%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87%E6%98%BE%E7%A4%BA%E9%97%AE%E5%8F%B7/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -357,18 +302,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/05/07/xxl-job%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          xxl-job的使用
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/12/01/jasypt%E5%AF%B9SpringBoot%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8A%A0%E5%AF%86/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">jasypt对SpringBoot配置文件加密</div>
+    <a href="/2022/06/07/%E8%A7%A3%E5%86%B3%E6%97%A5%E5%BF%97%E6%97%B6%E9%97%B4%E5%92%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%B3%BB%E7%BB%9F%E6%97%B6%E9%97%B4%E5%B7%AE8%E5%B0%8F%E6%97%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">解决日志时间和服务器系统时间差8小时</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -395,7 +331,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BeanFactory"><span class="toc-number">1.</span> <span class="toc-text">BeanFactory</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FactoryBean"><span class="toc-number">2.</span> <span class="toc-text">FactoryBean</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ObjectFactory"><span class="toc-number">3.</span> <span class="toc-text">ObjectFactory</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ApplicationContext"><span class="toc-number">4.</span> <span class="toc-text">ApplicationContext</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Bean%E4%B8%80%E5%85%B1%E6%9C%89%E5%87%A0%E7%A7%8D%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">5.</span> <span class="toc-text">Bean一共有几种作用域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Spring%E4%B8%80%E5%85%B1%E6%9C%89%E5%87%A0%E7%A7%8D%E6%B3%A8%E5%85%A5%E6%96%B9%E5%BC%8F"><span class="toc-number">6.</span> <span class="toc-text">Spring一共有几种注入方式</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%8E%9F%E5%90%AF%E5%8A%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">1.1.</span> <span class="toc-text">1.原启动命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%9C%A8%E5%91%BD%E4%BB%A4%E4%B8%AD%E5%A2%9E%E5%8A%A0-Dfile-encoding-utf-8"><span class="toc-number">1.2.</span> <span class="toc-text">2.在命令中增加-Dfile.encoding&#x3D;utf-8</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
