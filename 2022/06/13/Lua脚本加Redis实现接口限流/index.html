@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | 逃不开夏天</title>
+  <title>Lua脚本加Redis实现接口限流 | 逃不开夏天</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="逃不开夏天">
-<meta property="og:url" content="http://example.com/archives/2021/page/2/index.html">
+  <meta name="description" content="在SpringBoot工程中，使用Redis配合Lua脚本利用AOP实现接口限流。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua脚本加Redis实现接口限流">
+<meta property="og:url" content="http://example.com/2022/06/13/Lua%E8%84%9A%E6%9C%AC%E5%8A%A0Redis%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3%E9%99%90%E6%B5%81/index.html">
 <meta property="og:site_name" content="逃不开夏天">
-<meta property="og:description" content="个人博客">
+<meta property="og:description" content="在SpringBoot工程中，使用Redis配合Lua脚本利用AOP实现接口限流。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-13T07:08:47.000Z">
+<meta property="article:modified_time" content="2022-06-13T08:29:19.001Z">
 <meta property="article:author" content="xwm93">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="接口限流">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="逃不开夏天" type="application/atom+xml">
@@ -169,405 +171,247 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Lua脚本加Redis实现接口限流" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Lua脚本加Redis实现接口限流
+    </h1>
+  
+
+        
+        <a href="/2022/06/13/Lua%E8%84%9A%E6%9C%AC%E5%8A%A0Redis%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3%E9%99%90%E6%B5%81/" class="archive-article-date">
+  	<time datetime="2022-06-13T07:08:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-13</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在SpringBoot工程中，使用Redis配合Lua脚本利用AOP实现接口限流。</p>
+<span id="more"></span>
+
+<h2 id="1-引入依赖和配置Redis"><a href="#1-引入依赖和配置Redis" class="headerlink" title="1.引入依赖和配置Redis"></a>1.引入依赖和配置Redis</h2><p>1.需要映入Web，Redis，AOP的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.在<code>application.properties</code>文件中配置Redis</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.redis.host</span>=<span class="string">localhost</span></span><br><span class="line"><span class="meta">spring.redis.port</span>=<span class="string">6379</span></span><br><span class="line"><span class="meta">spring.redis.password</span>=<span class="string"></span></span><br></pre></td></tr></table></figure>
+
+<p>3.定制RedisTemplate序列化方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;Object, Object&gt; <span class="title">redisTemplate</span><span class="params">(RedisConnectionFactory connectionFactory)</span> </span>&#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; redisTemplate = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</span><br><span class="line">        redisTemplate.setConnectionFactory(connectionFactory);</span><br><span class="line">        <span class="comment">// 使用Jackson2JsonRedisSerialize 替换默认序列化(默认采用的是JDK序列化)</span></span><br><span class="line">        Jackson2JsonRedisSerializer&lt;Object&gt; jackson2JsonRedisSerializer = <span class="keyword">new</span> Jackson2JsonRedisSerializer&lt;Object&gt;(Object.class);</span><br><span class="line">        ObjectMapper om = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// redisTemplate.setKeySerializer(jackson2JsonRedisSerializer);</span></span><br><span class="line">        <span class="comment">// 使用StringRedisSerializer来序列化和反序列化redis的key值</span></span><br><span class="line">        redisTemplate.setKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line"></span><br><span class="line">        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        <span class="comment">// hashKey也使用StringRedisSerializer来序列化和反序列化</span></span><br><span class="line">        redisTemplate.setHashKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line">        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        redisTemplate.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-开发Lua脚本"><a href="#2-开发Lua脚本" class="headerlink" title="2.开发Lua脚本"></a>2.开发Lua脚本</h2><p>1.在<code>resources</code>目录下新建lua文件夹用来存放lua脚本<code>limit.lua</code>：</p>
+<blockquote>
+<p>KEYS 和 ARGV 都是一会调用时候传进来的参数，tonumber 就是把字符串转为数字，redis.call 就是执行具体的 redis 指令，具体流程是这样：</p>
+<ol>
+<li>首先获取到传进来的 key 以及 限流的 count 和时间 time。</li>
+<li>通过 get 获取到这个 key 对应的值，这个值就是当前时间窗内这个接口可以访问多少次。</li>
+<li>如果是第一次访问，此时拿到的结果为 nil，否则拿到的结果应该是一个数字，所以接下来就判断，如果拿到的结果是一个数字，并且这个数字还大于 count，那就说明已经超过流量限制了，那么直接返回查询的结果即可。</li>
+<li>如果拿到的结果为 nil，说明是第一次访问，此时就给当前 key 自增 1，然后设置一个过期时间。</li>
+<li>最后把自增 1 后的值返回就可以了。</li>
+</ol>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">local</span> key = KEYS[<span class="number">1</span>]</span><br><span class="line"><span class="keyword">local</span> count = <span class="built_in">tonumber</span>(ARGV[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">local</span> <span class="built_in">time</span> = <span class="built_in">tonumber</span>(ARGV[<span class="number">2</span>])</span><br><span class="line"><span class="keyword">local</span> current = redis.call(<span class="string">&#x27;get&#x27;</span>, key)</span><br><span class="line"><span class="keyword">if</span> current <span class="keyword">and</span> <span class="built_in">tonumber</span>(current) &gt; count <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">tonumber</span>(current)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line">current = redis.call(<span class="string">&#x27;incr&#x27;</span>, key)</span><br><span class="line"><span class="keyword">if</span> <span class="built_in">tonumber</span>(current) == <span class="number">1</span> <span class="keyword">then</span></span><br><span class="line">    redis.call(<span class="string">&#x27;expire&#x27;</span>, key, <span class="built_in">time</span>)</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="keyword">return</span> <span class="built_in">tonumber</span>(current)</span><br></pre></td></tr></table></figure>
+
+<p>2.定义一个Bean来加载Lua脚本</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> DefaultRedisScript&lt;Long&gt; <span class="title">limitScript</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    DefaultRedisScript&lt;Long&gt; redisScript = <span class="keyword">new</span> DefaultRedisScript&lt;&gt;();</span><br><span class="line">    redisScript.setScriptSource(<span class="keyword">new</span> ResourceScriptSource(<span class="keyword">new</span> ClassPathResource(<span class="string">&quot;lua/limit.lua&quot;</span>)));</span><br><span class="line">    redisScript.setResultType(Long.class);</span><br><span class="line">    <span class="keyword">return</span> redisScript;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-开发限流注解"><a href="#3-开发限流注解" class="headerlink" title="3.开发限流注解"></a>3.开发限流注解</h2><blockquote>
+<p> 限流分两种情况</p>
+<ol>
+<li>针对当前接口的全局性限流，例如该接口可以在 1 分钟内访问 100 次。</li>
+<li>针对某一个 IP 地址的限流，例如某个 IP 地址可以在 1 分钟内访问 100 次。</li>
+</ol>
+</blockquote>
+<p>1.创建一个枚举类：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public enum LimitType &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 默认全局限流</span><br><span class="line">     */</span><br><span class="line">    DEFAULT,</span><br><span class="line">    /**</span><br><span class="line">     * 根据请求者IP进行限流</span><br><span class="line">     */</span><br><span class="line">    IP</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.创建限流注解</p>
+<blockquote>
+<p>第一个参数限流的 key，这个仅仅是一个前缀，将来完整的 key 是这个前缀再加上接口方法的完整路径，共同组成限流 key，这个 key 将被存入到 Redis 中。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(ElementType.METHOD)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> RateLimiter &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 限流key</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">String <span class="title">key</span><span class="params">()</span> <span class="keyword">default</span> &quot;rate_limit:&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 限流时间,单位秒</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">time</span><span class="params">()</span> <span class="keyword">default</span> 60</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 限流次数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">count</span><span class="params">()</span> <span class="keyword">default</span> 100</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 限流类型</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">LimitType <span class="title">limitType</span><span class="params">()</span> <span class="keyword">default</span> LimitType.DEFAULT</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-定义切面"><a href="#4-定义切面" class="headerlink" title="4.定义切面"></a>4.定义切面</h2><p>1.定义切面拦截所有加了<code>@RateLimiter</code>注解的方法，在前置通知中对注解增加相关处理逻辑。</p>
+<blockquote>
+<ol>
+<li>首先获取到注解中的 key、time 以及 count 三个参数。</li>
+<li>获取一个组合的 key，所谓的组合的 key，就是在注解的 key 属性基础上，再加上方法的完整路径，如果是 IP 模式的话，就再加上 IP 地址。以 IP 模式为例，最终生成的 key 类似这样：<code>rate_limit:127.0.0.1-org.javaboy.ratelimiter.controller.HelloController-hello</code>（如果不是 IP 模式，那么生成的 key 中就不包含 IP 地址）。</li>
+<li>将生成的 key 放到集合中。</li>
+<li>通过 redisTemplate.execute 方法取执行一个 Lua 脚本，第一个参数是脚本所封装的对象，第二个参数是 key，对应了脚本中的 KEYS，后面是可变长度的参数，对应了脚本中的 ARGV。</li>
+<li>将 Lua 脚本执行的结果与 count 进行比较，如果大于 count，就说明过载了，抛异常就行了。</li>
+</ol>
+</blockquote>
+<p><code>RateLimiterAspect</code>代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RateLimiterAspect</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger log = LoggerFactory.getLogger(RateLimiterAspect.class);</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisTemplate&lt;Object, Object&gt; redisTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisScript&lt;Long&gt; limitScript;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before(&quot;@annotation(rateLimiter)&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doBefore</span><span class="params">(JoinPoint point, RateLimiter rateLimiter)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        String key = rateLimiter.key();</span><br><span class="line">        <span class="keyword">int</span> time = rateLimiter.time();</span><br><span class="line">        <span class="keyword">int</span> count = rateLimiter.count();</span><br><span class="line">        String combineKey = getCombineKey(rateLimiter, point);</span><br><span class="line">        List&lt;Object&gt; keys = Collections.singletonList(combineKey);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Long number = redisTemplate.execute(limitScript, keys, count, time);</span><br><span class="line">            <span class="keyword">if</span> (number == <span class="keyword">null</span> || number.intValue() &gt; count) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> ServiceException(<span class="string">&quot;访问过于频繁,请稍后再试&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            log.info(<span class="string">&quot;限制请求&#x27;&#123;&#125;&#x27;, 当前请求&#x27;&#123;&#125;&#x27;, 缓存key&#x27;&#123;&#125;&#x27;&quot;</span>, count, number.intValue(), key);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ServiceException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">&quot;服务器限流异常, 请稍后再试&quot;</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getCombineKey</span><span class="params">(RateLimiter rateLimiter, JoinPoint point)</span> </span>&#123;</span><br><span class="line">        StringBuffer stringBuffer = <span class="keyword">new</span> StringBuffer(rateLimiter.key());</span><br><span class="line">        <span class="keyword">if</span> (rateLimiter.limitType() == LimitType.IP) &#123;</span><br><span class="line">            stringBuffer.append(IpUtils.getIpAddr(((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest())).append(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        MethodSignature signature = (MethodSignature) point.getSignature();</span><br><span class="line">        Method method = signature.getMethod();</span><br><span class="line">        Class&lt;?&gt; declaringClass = method.getDeclaringClass();</span><br><span class="line">        stringBuffer.append(declaringClass.getName()).append(<span class="string">&quot;-&quot;</span>).append(method.getName());</span><br><span class="line">        <span class="keyword">return</span> stringBuffer.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-测试Demo"><a href="#5-测试Demo" class="headerlink" title="5.测试Demo"></a>5.测试Demo</h2><p>1.在测试Controller的方法上增加注解<code>@RateLimiter(time = 5, count = 3, limitType = LimitType.IP)</code></p>
+<blockquote>
+<p>每个IP地址，在5秒中内只能访问3次</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 每个IP地址, 在5秒内只能访问3次</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/hello&quot;)</span></span><br><span class="line">    <span class="meta">@RateLimiter(time = 5, count = 3, limitType = LimitType.IP)</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;hello&gt;&gt;&gt;&quot;</span> + <span class="keyword">new</span> Date();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/27/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E6%B6%88%E9%99%A4if-else/" class="archive-article-date">
-  	<time datetime="2021-11-27T07:26:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/27/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E6%B6%88%E9%99%A4if-else/">工厂模式消除if/else</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">工厂模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">接口限流</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/06/13/Lua%E8%84%9A%E6%9C%AC%E5%8A%A0Redis%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3%E9%99%90%E6%B5%81/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/27/%E7%94%A8%E6%9E%9A%E4%B8%BE%E6%B6%88%E9%99%A4if-else%E7%9A%84%E6%96%B9%E6%B3%95/" class="archive-article-date">
-  	<time datetime="2021-11-27T06:48:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-27</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2022/06/10/%E4%BD%BF%E7%94%A8Jackson2JsonRedisSerialize%E6%9B%BF%E6%8D%A2%E9%BB%98%E8%AE%A4%E5%BA%8F%E5%88%97%E5%8C%96/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">使用Jackson2JsonRedisSerialize替换默认序列化</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/27/%E7%94%A8%E6%9E%9A%E4%B8%BE%E6%B6%88%E9%99%A4if-else%E7%9A%84%E6%96%B9%E6%B3%95/">用枚举消除if/else的方法</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">enum</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96%E5%92%8C%E9%85%8D%E7%BD%AERedis"><span class="toc-number">1.</span> <span class="toc-text">1.引入依赖和配置Redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%BC%80%E5%8F%91Lua%E8%84%9A%E6%9C%AC"><span class="toc-number">2.</span> <span class="toc-text">2.开发Lua脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%BC%80%E5%8F%91%E9%99%90%E6%B5%81%E6%B3%A8%E8%A7%A3"><span class="toc-number">3.</span> <span class="toc-text">3.开发限流注解</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%9A%E4%B9%89%E5%88%87%E9%9D%A2"><span class="toc-number">4.</span> <span class="toc-text">4.定义切面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%B5%8B%E8%AF%95Demo"><span class="toc-number">5.</span> <span class="toc-text">5.测试Demo</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/25/%E4%BD%BF%E7%94%A8Transactional%E6%B3%A8%E8%A7%A3%E8%A6%81%E9%81%BF%E5%85%8D%E9%95%BF%E4%BA%8B%E5%8A%A1/" class="archive-article-date">
-  	<time datetime="2021-11-25T08:00:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-25</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/25/%E4%BD%BF%E7%94%A8Transactional%E6%B3%A8%E8%A7%A3%E8%A6%81%E9%81%BF%E5%85%8D%E9%95%BF%E4%BA%8B%E5%8A%A1/">使用Transactional注解要避免长事务</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Spring事务</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/25/%E5%B0%86%E6%95%B0%E6%8D%AE%E6%97%A0%E6%A8%A1%E6%9D%BF%E5%AF%BC%E5%87%BApdf%E6%96%87%E4%BB%B6/" class="archive-article-date">
-  	<time datetime="2021-11-25T01:24:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/25/%E5%B0%86%E6%95%B0%E6%8D%AE%E6%97%A0%E6%A8%A1%E6%9D%BF%E5%AF%BC%E5%87%BApdf%E6%96%87%E4%BB%B6/">将数据无模板导出pdf文件</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">导出PDF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/18/%E8%A7%A3%E5%86%B3git%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81%E6%AF%8F%E6%AC%A1%E9%83%BD%E8%A6%81%E8%BE%93%E5%85%A5%E8%B4%A6%E5%8F%B7%E5%92%8C%E5%AF%86%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2021-11-18T06:24:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/18/%E8%A7%A3%E5%86%B3git%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81%E6%AF%8F%E6%AC%A1%E9%83%BD%E8%A6%81%E8%BE%93%E5%85%A5%E8%B4%A6%E5%8F%B7%E5%92%8C%E5%AF%86%E7%A0%81/">解决git拉取代码每次都要输入账号和密码</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/12/MySQL%E5%AE%9E%E7%8E%B0%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" class="archive-article-date">
-  	<time datetime="2021-11-12T08:24:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/12/MySQL%E5%AE%9E%E7%8E%B0%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/">MySQL实现读写分离</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MySQL读写分离</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/12/%E6%9C%AC%E5%9C%B0%E7%94%A8ip%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%B4%E6%8A%A5%E9%94%99/" class="archive-article-date">
-  	<time datetime="2021-11-12T03:44:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/12/%E6%9C%AC%E5%9C%B0%E7%94%A8ip%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%B4%E6%8A%A5%E9%94%99/">本地用ip连接数据库却报错?</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/11/Mysql%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2021-11-11T03:15:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/11/Mysql%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83%E5%91%BD%E4%BB%A4/">Mysql创建用户并授权命令</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mysql命令</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/11/LinkedHashMap%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2021-11-11T01:26:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/11/LinkedHashMap%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/">LinkedHashMap原理和底层实现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LinkedHashMap</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/11/10/%E5%85%B3%E4%BA%8ECountDownLatch/" class="archive-article-date">
-  	<time datetime="2021-11-10T07:02:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/11/10/%E5%85%B3%E4%BA%8ECountDownLatch/">关于CountDownLatch</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">CountDownLatch</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2021/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2021/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2021/page/3/">3</a><a class="page-number" href="/archives/2021/page/4/">4</a><a class="extend next" rel="next" href="/archives/2021/page/3/">Next &amp;raquo;</a>
-    </nav>
   
 
 
@@ -591,8 +435,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
