@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>MyBatis的多个入参查询 | 逃不开夏天</title>
+  <title>docker-compose常用命令 | 逃不开夏天</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MyBatis的多个传参查询sql这样写">
+  <meta name="description" content="记录一下docker-compose常用的命令">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MyBatis的多个入参查询">
-<meta property="og:url" content="http://example.com/2022/05/31/MyBatis%E7%9A%84%E5%A4%9A%E4%B8%AA%E5%85%A5%E5%8F%82%E6%9F%A5%E8%AF%A2/index.html">
+<meta property="og:title" content="docker-compose常用命令">
+<meta property="og:url" content="http://example.com/2022/07/14/docker-compose%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="逃不开夏天">
-<meta property="og:description" content="MyBatis的多个传参查询sql这样写">
+<meta property="og:description" content="记录一下docker-compose常用的命令">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-31T08:24:36.000Z">
-<meta property="article:modified_time" content="2022-05-31T08:36:38.951Z">
+<meta property="article:published_time" content="2022-07-14T06:23:36.000Z">
+<meta property="article:modified_time" content="2022-07-14T06:26:21.293Z">
 <meta property="article:author" content="xwm93">
-<meta property="article:tag" content="MyBatis">
+<meta property="article:tag" content="docker-compose">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="逃不开夏天" type="application/atom+xml">
@@ -171,36 +171,171 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MyBatis的多个入参查询" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-docker-compose常用命令" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      MyBatis的多个入参查询
+      docker-compose常用命令
     </h1>
   
 
         
-        <a href="/2022/05/31/MyBatis%E7%9A%84%E5%A4%9A%E4%B8%AA%E5%85%A5%E5%8F%82%E6%9F%A5%E8%AF%A2/" class="archive-article-date">
-  	<time datetime="2022-05-31T08:24:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-05-31</time>
+        <a href="/2022/07/14/docker-compose%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2022-07-14T06:23:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-07-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>MyBatis的多个传参查询sql这样写</p>
+        <p>记录一下docker-compose常用的命令</p>
 <span id="more"></span>
 
-<h2 id="接口层"><a href="#接口层" class="headerlink" title="接口层"></a>接口层</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 统计在线数量</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> equipment</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">countOnline</span><span class="params">(<span class="meta">@Param(&quot;equipment&quot;)</span> Equipment equipment, <span class="meta">@Param(&quot;projectIds&quot;)</span> List&lt;Integer&gt; projectIds)</span></span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>作者：开发运维玄德公<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0f65a61a3541">https://www.jianshu.com/p/0f65a61a3541</a><br>来源：简书</p>
+</blockquote>
+<h1 id="1-构建和删除"><a href="#1-构建和删除" class="headerlink" title="1. 构建和删除"></a>1. 构建和删除</h1><h2 id="1-1-up"><a href="#1-1-up" class="headerlink" title="1.1 up"></a>1.1 up</h2><ul>
+<li><strong>作用：</strong> 构建并启动容器</li>
+<li><strong>语法</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -f xxx.yaml up [ -d ]</span><br></pre></td></tr></table></figure>
 
-<h2 id="mapper-xml"><a href="#mapper-xml" class="headerlink" title="mapper.xml"></a>mapper.xml</h2><p>mybatis同样支持对集合的判空<code>&lt;if test=&quot;projectIds != null and projectIds.size &gt; 0&quot;&gt;&lt;/if&gt;</code></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">&quot;countOnline&quot;</span> <span class="attr">resultType</span>=<span class="string">&quot;java.lang.Long&quot;</span>&gt;</span></span><br><span class="line">    select count(1) from t_equipment</span><br><span class="line">    where `status` = &#x27;ONLINE&#x27;</span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;equipment.category != null and equipment.category != &#x27;&#x27;&quot;</span>&gt;</span></span><br><span class="line">        and category = #&#123;equipment.category&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;equipment.category != null and equipment.category != &#x27;&#x27;&quot;</span>&gt;</span></span><br><span class="line">        and category = #&#123;equipment.category&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;equipment.companyId != null&quot;</span>&gt;</span></span><br><span class="line">        and company_id = #&#123;equipment.companyId&#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">if</span> <span class="attr">test</span>=<span class="string">&quot;projectIds != null and projectIds.size &gt; 0&quot;</span>&gt;</span></span><br><span class="line">        and project_id in</span><br><span class="line">        <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;projectIds&quot;</span> <span class="attr">item</span>=<span class="string">&quot;item&quot;</span> <span class="attr">index</span>=<span class="string">&quot;index&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span> <span class="attr">open</span>=<span class="string">&quot;(&quot;</span> <span class="attr">close</span>=<span class="string">&quot;)&quot;</span>&gt;</span></span><br><span class="line">            #&#123;item&#125;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">if</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>说明：<br> 默认文件名为<code>docker-compose.yml</code>时 ,<code>-f</code>可以省略。<br> <code>-d</code> 是后台运行。</p>
+</blockquote>
+<ul>
+<li><strong>示例</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@test mysql]# docker-compose up -d</span><br><span class="line">Creating network &quot;mysql_default&quot; with the default driver</span><br><span class="line">Creating liubei_mysql ... done</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>说明：</p>
+<p>创建了一个网络：mysql_default</p>
+<p>创建了一个容器：liubei_mysql</p>
+</blockquote>
+<h2 id="1-2-down"><a href="#1-2-down" class="headerlink" title="1.2 down"></a>1.2 down</h2><ul>
+<li><strong>作用：</strong> 停止并删除容器、网络、卷、镜像。</li>
+<li><strong>语法：</strong> <code>docker-compose down [options]</code></li>
+<li><strong>示例</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@<span class="built_in">test</span> mysql]<span class="comment"># docker-compose down</span></span><br><span class="line">Stopping liubei_mysql ... <span class="keyword">done</span></span><br><span class="line">Removing liubei_mysql ... <span class="keyword">done</span></span><br><span class="line">Removing network mysql_default</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>说明：</p>
+<p>停止了容器，移除了容器，移除了网络。</p>
+<p>如果这个网络有容器在用，移除网络这里会报一个警告</p>
+</blockquote>
+<h2 id="1-3-rm"><a href="#1-3-rm" class="headerlink" title="1.3 rm"></a>1.3 rm</h2><ul>
+<li><strong>作用：</strong> 删除指定服务的容器（停止状态的）</li>
+<li><strong>语法：</strong> docker-compose rm [options] [SERVICE…]</li>
+</ul>
+<blockquote>
+<p>【选项】<br> –f, –force，强制直接删除，包括非停止状态的容器<br> -v，删除容器所挂载的数据卷</p>
+</blockquote>
+<ul>
+<li><strong>示例</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@test mysql]# docker-compose ps</span><br><span class="line">    Name                 Command             State                 Ports</span><br><span class="line">--------------------------------------------------------------------------------------</span><br><span class="line">liubei_mysql   docker-entrypoint.sh mysqld   Up      0.0.0.0:3306-&gt;3306/tcp, 33060/tcp</span><br><span class="line">[root@test mysql]# docker-compose rm</span><br><span class="line">No stopped containers</span><br><span class="line">[root@test mysql]# docker-compose stop</span><br><span class="line">Stopping liubei_mysql ... done</span><br><span class="line">[root@test mysql]# docker-compose rm</span><br><span class="line">Going to remove liubei_mysql</span><br><span class="line">Are you sure? [yN] y</span><br><span class="line">Removing liubei_mysql ... done</span><br><span class="line">[root@test mysql]# docker-compose ps</span><br><span class="line">Name   Command   State   Ports</span><br><span class="line">------------------------------</span><br></pre></td></tr></table></figure>
 
+<h2 id="1-4-run"><a href="#1-4-run" class="headerlink" title="1.4 run"></a>1.4 run</h2><ul>
+<li><strong>作用：</strong> 启动一个服务，并在一个服务上执行一个命令</li>
+<li><strong>语法：</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose run [options] [-v VOLUME...] [-p PORT...] [-e KEY=VAL...] SERVICE [COMMAND] [ARGS...]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>示例1</strong></li>
+</ul>
+<blockquote>
+<p>说明：<br> 如果没有这个服务，会直接创建容器和网络。<br> 如果启动了，则会直接执性后边点命令<br> 执行完之后，容器会被删除，但默认网络不会删除。<br> 服务名是</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@n9e-client-01 mysql]# docker-compose ps</span><br><span class="line">Name   Command   State   Ports</span><br><span class="line">------------------------------</span><br><span class="line">[root@n9e-client-01 mysql]# docker-compose run mysql &quot;pwd&quot;</span><br><span class="line">Creating network &quot;mysql_default&quot; with the default driver</span><br><span class="line">/</span><br><span class="line">[root@n9e-client-01 mysql]# docker-compose run mysql &quot;pwd&quot;</span><br><span class="line">/</span><br><span class="line">[root@n9e-client-01 mysql]# docker-compose ps</span><br><span class="line">Name   Command   State   Ports</span><br><span class="line">------------------------------</span><br></pre></td></tr></table></figure>
+
+<h1 id="2-启动-停止-暂停"><a href="#2-启动-停止-暂停" class="headerlink" title="2. 启动/停止/暂停"></a>2. 启动/停止/暂停</h1><h2 id="2-1-start"><a href="#2-1-start" class="headerlink" title="2.1 start"></a>2.1 start</h2><ul>
+<li><strong>作用：</strong>启动指定服务已存在的容器</li>
+<li><strong>语法：</strong> <code>docker-compose stop [SERVICE...]</code></li>
+<li><strong>示例</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@test mysql]# docker-compose ps</span><br><span class="line">    Name                 Command             State    Ports</span><br><span class="line">-----------------------------------------------------------</span><br><span class="line">liubei_mysql   docker-entrypoint.sh mysqld   Exit 0</span><br><span class="line">[root@test mysql]# docker-compose start</span><br><span class="line">Starting mysql ... done</span><br><span class="line">[root@test mysql]# docker-compose ps</span><br><span class="line">    Name                 Command             State                 Ports</span><br><span class="line">--------------------------------------------------------------------------------------</span><br><span class="line">liubei_mysql   docker-entrypoint.sh mysqld   Up      0.0.0.0:3306-&gt;3306/tcp, 33060/tcp</span><br></pre></td></tr></table></figure>
+
+<p>如果服务不存在，则报错如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@test mysql]# docker-compose down</span><br><span class="line">Stopping liubei_mysql ... done</span><br><span class="line">Removing liubei_mysql ... done</span><br><span class="line">Removing network mysql_default</span><br><span class="line">[root@test mysql]# docker-compose ps</span><br><span class="line">Name   Command   State   Ports</span><br><span class="line">------------------------------</span><br><span class="line">[root@test mysql]# docker-compose start</span><br><span class="line">Starting mysql ... failed</span><br><span class="line">ERROR: No containers to start</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-stop"><a href="#2-2-stop" class="headerlink" title="2.2 stop"></a>2.2 stop</h2><ul>
+<li><strong>作用：</strong> 停止已运行的服务的容器</li>
+<li><strong>语法：</strong> <code>docker-compose stop [SERVICE...]</code></li>
+<li><strong>示例</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@test mysql]# docker-compose stop</span><br><span class="line">Stopping liubei_mysql ... done</span><br><span class="line">[root@test mysql]# docker-compose ps</span><br><span class="line">    Name                 Command             State    Ports</span><br><span class="line">-----------------------------------------------------------</span><br><span class="line">liubei_mysql   docker-entrypoint.sh mysqld   Exit 0</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-restart"><a href="#2-3-restart" class="headerlink" title=".2.3 restart"></a>.2.3 restart</h2><ul>
+<li><strong>作用：</strong> 重起容器</li>
+<li><strong>语法：</strong> <code>docker-compose restart [options] [SERVICE...]</code></li>
+<li><strong>示例：</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@test mysql]# docker-compose restart mysql</span><br><span class="line">Restarting liubei_mysql ... done</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-pause"><a href="#2-4-pause" class="headerlink" title="2.4 pause"></a>2.4 pause</h2><p>1）作用：暂停已运行的服务的容器</p>
+<p>2）语法： docker-compose pause [SERVICE…]</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@test mysql]# docker-compose pause</span><br><span class="line">Pausing liubei_mysql ... done</span><br><span class="line">[root@test mysql]# docker-compose ps</span><br><span class="line">   Name                 Command             State                  Ports</span><br><span class="line">---------------------------------------------------------------------------------------</span><br><span class="line">liubei_mysql   docker-entrypoint.sh mysqld   Paused   0.0.0.0:3306-&gt;3306/tcp, 33060/tcp</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>从状态可以看到，pause是暂停，和stop点结束时不同的。</p>
+</blockquote>
+<h2 id="2-5-kill"><a href="#2-5-kill" class="headerlink" title="2.5 kill"></a>2.5 kill</h2><ul>
+<li><strong>作用：</strong> 通过发送 SIGKILL 信号来停止指定服务的容器</li>
+<li><strong>语法：</strong>  <code>docker-compose kill [options] [SERVICE...]</code></li>
+<li><strong>示例：</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">[root@test]#</span><span class="bash"> docker-compose <span class="built_in">kill</span></span></span><br><span class="line">Killing liubei_mysql ... done</span><br><span class="line"><span class="meta">[root@test]#</span><span class="bash"> docker-compose ps</span></span><br><span class="line">    Name                 Command              State     Ports</span><br><span class="line">-------------------------------------------------------------</span><br><span class="line">liubei_mysql   docker-entrypoint.sh mysqld   Exit 137</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>和stop点区别：从退出状态可知，stop是正常结束服务，而kill是杀死，非特殊情况不建议kill。</p>
+</blockquote>
+<h2 id="3-查看和日志"><a href="#3-查看和日志" class="headerlink" title="3 查看和日志"></a>3 查看和日志</h2><h2 id="3-1-ps"><a href="#3-1-ps" class="headerlink" title="3.1 ps"></a>3.1 ps</h2><ul>
+<li><strong>作用：</strong> 列出所有容器</li>
+<li><strong>语法：</strong>  <code>docker-compose ps [options] [SERVICE...]</code></li>
+<li><strong>示例</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@test crust-framework]# docker-compose ps</span><br><span class="line"> Name                Command               State            Ports</span><br><span class="line">---------------------------------------------------------------------------</span><br><span class="line">auth      sh -c java -server $JAVA_O ...   Up      0.0.0.0:10001-&gt;10001/tcp</span><br><span class="line">gateway   sh -c java -server $JAVA_O ...   Up      0.0.0.0:10000-&gt;10000/tcp</span><br><span class="line">user      sh -c java -server $JAVA_O ...   Up      0.0.0.0:10002-&gt;10002/tcp</span><br><span class="line">[root@test crust-framework]# docker-compose ps auth</span><br><span class="line">Name              Command               State            Ports</span><br><span class="line">------------------------------------------------------------------------</span><br><span class="line">auth   sh -c java -server $JAVA_O ...   Up      0.0.0.0:10001-&gt;10001/tcp</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-2-logs"><a href="#3-2-logs" class="headerlink" title="3.2 logs"></a>3.2 logs</h2><ul>
+<li><strong>作用：</strong> 查看服务日志输出（容器前台输出的日志）</li>
+<li><strong>语法：</strong>  <code>docker-compose logs [options] [SERVICE...]</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@test mysql]# docker-compose logs</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-3-port"><a href="#3-3-port" class="headerlink" title="3.3 port"></a>3.3 port</h2><ul>
+<li><strong>作用：</strong> 打印绑定的公共端口</li>
+<li><strong>示例</strong></li>
+</ul>
+<p>打印mysql 3306端口绑定的端口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@test mysql]# docker-compose port mysql 3306</span><br><span class="line">0.0.0.0:3306</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-其它"><a href="#4-其它" class="headerlink" title="4 其它"></a>4 其它</h1><h2 id="4-1-pull"><a href="#4-1-pull" class="headerlink" title="4.1 pull"></a>4.1 pull</h2><ul>
+<li><strong>作用：</strong> 下载服务镜像</li>
+<li><strong>示例：</strong></li>
+</ul>
+<p>下载docker-compose.yml中所需的镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@test mysql]# docker-compose pull</span><br><span class="line">Pulling mysql ... done</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-scale"><a href="#4-2-scale" class="headerlink" title="4.2 scale"></a>4.2 scale</h2><ul>
+<li><strong>作用：</strong> 设置指定服务运行容器的个数，以 service=num 形式指定</li>
+<li><strong>示例：</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@n9e-client-01 mysql]# docker-compose up -d</span><br><span class="line">Creating network &quot;mysql_default&quot; with the default driver</span><br><span class="line">Creating mysql_mysql_1 ... done</span><br><span class="line">[root@n9e-client-01 mysql]# docker-compose ps</span><br><span class="line">    Name                  Command             State          Ports</span><br><span class="line">-------------------------------------------------------------------------</span><br><span class="line">mysql_mysql_1   docker-entrypoint.sh mysqld   Up      3306/tcp, 33060/tcp</span><br><span class="line">[root@n9e-client-01 mysql]# docker-compose scale mysql=2</span><br><span class="line">WARNING: The scale command is deprecated. Use the up command with the --scale flag instead.</span><br><span class="line">Starting mysql_mysql_1 ... done</span><br><span class="line">Creating mysql_mysql_2 ... done</span><br><span class="line">[root@n9e-client-01 mysql]# docker-compose ps</span><br><span class="line">    Name                  Command             State          Ports</span><br><span class="line">-------------------------------------------------------------------------</span><br><span class="line">mysql_mysql_1   docker-entrypoint.sh mysqld   Up      3306/tcp, 33060/tcp</span><br><span class="line">mysql_mysql_2   docker-entrypoint.sh mysqld   Up      3306/tcp, 33060/tcp</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>说明：</p>
+<p>不能给容器起名，否则冲突。</p>
+<p>不能映射端口，否则冲突……</p>
+</blockquote>
+<h2 id="4-3-build"><a href="#4-3-build" class="headerlink" title="4.3 build"></a>4.3 build</h2><ul>
+<li><strong>作用：</strong> 构建或者重新构建服务</li>
+</ul>
 
       
 
@@ -235,7 +370,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">docker-compose</a>
         		</li>
       		
 		</ul>
@@ -291,7 +426,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/05/31/MyBatis%E7%9A%84%E5%A4%9A%E4%B8%AA%E5%85%A5%E5%8F%82%E6%9F%A5%E8%AF%A2/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/07/14/docker-compose%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -305,18 +440,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2022/06/01/%E5%AE%89%E8%A3%85docker-compose%E5%90%8E%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC%E6%8A%A5%E9%94%99/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          安装docker-compose后查看版本报错
-        
-      </div>
-    </a>
   
-  
-    <a href="/2022/05/30/MySQL%E6%9F%A5%E8%AF%A2%E7%BA%B5%E8%A1%A8%E8%BD%AC%E6%A8%AA%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MySQL查询纵表转横表</div>
+    <a href="/2022/07/14/Centos7%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Centos7开放端口操作命令</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -343,7 +469,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E5%B1%82"><span class="toc-number">1.</span> <span class="toc-text">接口层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mapper-xml"><span class="toc-number">2.</span> <span class="toc-text">mapper.xml</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%9E%84%E5%BB%BA%E5%92%8C%E5%88%A0%E9%99%A4"><span class="toc-number">1.</span> <span class="toc-text">1. 构建和删除</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-up"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 up</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-down"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 down</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-rm"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 rm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-run"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 run</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%90%AF%E5%8A%A8-%E5%81%9C%E6%AD%A2-%E6%9A%82%E5%81%9C"><span class="toc-number">2.</span> <span class="toc-text">2. 启动&#x2F;停止&#x2F;暂停</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-start"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 start</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-stop"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 stop</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-restart"><span class="toc-number">2.3.</span> <span class="toc-text">.2.3 restart</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-pause"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 pause</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-kill"><span class="toc-number">2.5.</span> <span class="toc-text">2.5 kill</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E5%92%8C%E6%97%A5%E5%BF%97"><span class="toc-number">2.6.</span> <span class="toc-text">3 查看和日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-ps"><span class="toc-number">2.7.</span> <span class="toc-text">3.1 ps</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-logs"><span class="toc-number">2.8.</span> <span class="toc-text">3.2 logs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-port"><span class="toc-number">2.9.</span> <span class="toc-text">3.3 port</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%85%B6%E5%AE%83"><span class="toc-number">3.</span> <span class="toc-text">4 其它</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-pull"><span class="toc-number">3.1.</span> <span class="toc-text">4.1 pull</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-scale"><span class="toc-number">3.2.</span> <span class="toc-text">4.2 scale</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-build"><span class="toc-number">3.3.</span> <span class="toc-text">4.3 build</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
