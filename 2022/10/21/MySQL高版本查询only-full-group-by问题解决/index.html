@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Integer类型典型的==案例 | 逃不开夏天</title>
+  <title>MySQL高版本查询only_full_group_by问题解决 | 逃不开夏天</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="如果你是初级程序员, 知道为什么 Java 中“1000&#x3D;&#x3D;1000”为false，而”100&#x3D;&#x3D;100“为true？">
+  <meta name="description" content="记录MySQL5.7版本查询报错，sql_mode&#x3D;only_full_group_by解决方案">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Integer类型典型的&#x3D;&#x3D;案例">
-<meta property="og:url" content="http://example.com/2021/10/23/Integer%E7%B1%BB%E5%9E%8B%E5%85%B8%E5%9E%8B%E7%9A%84==%E6%A1%88%E4%BE%8B/index.html">
+<meta property="og:title" content="MySQL高版本查询only_full_group_by问题解决">
+<meta property="og:url" content="http://example.com/2022/10/21/MySQL%E9%AB%98%E7%89%88%E6%9C%AC%E6%9F%A5%E8%AF%A2only-full-group-by%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/index.html">
 <meta property="og:site_name" content="逃不开夏天">
-<meta property="og:description" content="如果你是初级程序员, 知道为什么 Java 中“1000&#x3D;&#x3D;1000”为false，而”100&#x3D;&#x3D;100“为true？">
+<meta property="og:description" content="记录MySQL5.7版本查询报错，sql_mode&#x3D;only_full_group_by解决方案">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-10-23T03:15:26.000Z">
-<meta property="article:modified_time" content="2022-05-19T10:20:36.680Z">
+<meta property="article:published_time" content="2022-10-21T07:36:04.000Z">
+<meta property="article:modified_time" content="2022-10-21T07:42:17.191Z">
 <meta property="article:author" content="xwm93">
-<meta property="article:tag" content="经典面试题">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="逃不开夏天" type="application/atom+xml">
@@ -171,59 +171,45 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Integer类型典型的==案例" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-MySQL高版本查询only-full-group-by问题解决" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Integer类型典型的==案例
+      MySQL高版本查询only_full_group_by问题解决
     </h1>
   
 
         
-        <a href="/2021/10/23/Integer%E7%B1%BB%E5%9E%8B%E5%85%B8%E5%9E%8B%E7%9A%84==%E6%A1%88%E4%BE%8B/" class="archive-article-date">
-  	<time datetime="2021-10-23T03:15:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-23</time>
+        <a href="/2022/10/21/MySQL%E9%AB%98%E7%89%88%E6%9C%AC%E6%9F%A5%E8%AF%A2only-full-group-by%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" class="archive-article-date">
+  	<time datetime="2022-10-21T07:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>如果你是初级程序员, 知道<strong>为什么 Java 中“1000==1000”为false，而”100==100“为true？</strong></p>
+        <p>记录MySQL5.7版本查询报错，<code>sql_mode=only_full_group_by</code>解决方案</p>
 <span id="more"></span>
-<p><strong>如果你运行下面的代码：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer a = <span class="number">1000</span>, b = <span class="number">1000</span>;</span><br><span class="line">System.out.println(a == b);<span class="comment">// false</span></span><br><span class="line">System.out.println(a.equals(b));<span class="comment">// true</span></span><br><span class="line">Integer c = <span class="number">100</span>, d = <span class="number">100</span>;</span><br><span class="line">System.out.println(c == d);<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
-<p>你会得到</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">false</span><br><span class="line">true</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
-<p>基本知识：我们知道，如果两个引用指向同一个对象，用 == 表示它们是相等的。如果两个引用指向不同的对象，用 == 表示它们是不相等的，即使它们的内容相同。</p>
-<p>因此，后面一条语句也应该是 false 。</p>
-<p>这就是它有趣的地方了。如果你看去看 Integer.java 类，你会发现有一个内部私有类，IntegerCache.java，它缓存了从 - 128 到 127 之间的所有的整数对象。</p>
-<p>所以事情就成了，所有的小整数在内部缓存，然后当我们声明类似——</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer c = 100;</span><br></pre></td></tr></table></figure>
+<p><strong>1.找到mysql的<code>my.cnf</code>配置文件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/my.cnf</span><br></pre></td></tr></table></figure>
 
-<p>的时候，它实际上在内部做的是：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer i = Integer.valueOf(100);</span><br></pre></td></tr></table></figure>
 
-<p>现在，如果我们去看 valueOf() 方法，我们可以看到</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static Integer valueOf(int i) &#123;</span><br><span class="line">        if (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span><br><span class="line">            return IntegerCache.cache[i + (-IntegerCache.low)];</span><br><span class="line">        return new Integer(i);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<p>如果值的范围在 - 128 到 127 之间，它就从高速缓存返回实例。</p>
-<p>所以…</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer c = 100, d = 100;</span><br></pre></td></tr></table></figure>
+<p><strong>2.在[mysqld]下增加：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 增加下面一行</span><br><span class="line">sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION</span><br></pre></td></tr></table></figure>
 
-<p>指向了同一个对象。</p>
-<p>这就是为什么我们写</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(c == d);</span><br></pre></td></tr></table></figure>
 
-<p>我们可以得到 true。</p>
-<p>现在你可能会问，为什么这里需要缓存？</p>
-<p>合乎逻辑的理由是，在此范围内的 “小” 整数使用率比大整数要高，因此，使用相同的底层对象是有价值的，可以减少潜在的内存占用。</p>
-<p>然而，通过反射 API 你会误用此功能。</p>
-<p>运行下面的代码，享受它的魅力吧</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Class cache = Integer.class.getDeclaredClasses()[0]; //1</span><br><span class="line">Field myCache = cache.getDeclaredField(&quot;cache&quot;); //2</span><br><span class="line">myCache.setAccessible(true);//3</span><br><span class="line"></span><br><span class="line">Integer[] newCache = (Integer[]) myCache.get(cache); //4</span><br><span class="line">newCache[132] = newCache[133]; //5, 步骤5相当于把5的值赋给了4, 导致2+2=5</span><br><span class="line"></span><br><span class="line">int a = 2;</span><br><span class="line">int b = a + a;</span><br><span class="line">System.out.printf(&quot;%d + %d = %d&quot;, a, a, b); //</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.重启MySQL</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service mysqld restart</span><br></pre></td></tr></table></figure>
+
+
+
+
       
 
       
@@ -257,7 +243,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">经典面试题</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -313,7 +299,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/23/Integer%E7%B1%BB%E5%9E%8B%E5%85%B8%E5%9E%8B%E7%9A%84==%E6%A1%88%E4%BE%8B/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/10/21/MySQL%E9%AB%98%E7%89%88%E6%9C%AC%E6%9F%A5%E8%AF%A2only-full-group-by%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -327,18 +313,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/10/26/SpringBoot%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E7%8E%A9%E9%99%90%E6%B5%81/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          SpringBoot项目如何玩限流
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/10/23/%E7%BC%96%E7%A8%8B%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B7%A5%E5%85%B7%E5%92%8C%E7%BD%91%E7%AB%99/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">编程常用的一些工具和网站</div>
+    <a href="/2022/10/21/MySQL%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E6%8A%A5%E9%94%99-MySQL-2006-MySQLserver-has-gone-away/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL导入数据报错:MySQL 2006-MySQLserver has gone away</div>
       <i class="icon-circle-right"></i>
     </a>
   
