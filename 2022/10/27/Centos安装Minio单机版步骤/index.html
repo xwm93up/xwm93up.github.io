@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>逃不开夏天</title>
+  <title>Centos安装Minio单机版步骤 | 逃不开夏天</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="逃不开夏天">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="Centos7.9安装Minio文件存储服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos安装Minio单机版步骤">
+<meta property="og:url" content="http://example.com/2022/10/27/Centos%E5%AE%89%E8%A3%85Minio%E5%8D%95%E6%9C%BA%E7%89%88%E6%AD%A5%E9%AA%A4/index.html">
 <meta property="og:site_name" content="逃不开夏天">
-<meta property="og:description" content="个人博客">
+<meta property="og:description" content="Centos7.9安装Minio文件存储服务">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/57f13c398943104b0b05c129be266e15b05addf4.png">
+<meta property="og:image" content="http://example.com/images/41894046c80c66eac872494827eb4cdf549a0f37.png">
+<meta property="article:published_time" content="2022-10-27T09:11:33.000Z">
+<meta property="article:modified_time" content="2022-10-27T09:21:04.679Z">
 <meta property="article:author" content="xwm93">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="minio">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/57f13c398943104b0b05c129be266e15b05addf4.png">
   
     <link rel="alternative" href="/atom.xml" title="逃不开夏天" type="application/atom+xml">
   
@@ -169,16 +174,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Centos安装Minio单机版步骤" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Centos安装Minio单机版步骤" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/27/Centos%E5%AE%89%E8%A3%85Minio%E5%8D%95%E6%9C%BA%E7%89%88%E6%AD%A5%E9%AA%A4/">Centos安装Minio单机版步骤</a>
+    <h1 class="article-title" itemprop="name">
+      Centos安装Minio单机版步骤
     </h1>
   
 
@@ -192,9 +195,90 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Centos7.9安装Minio文件存储服务</p>
-        
+<span id="more"></span>
+
+<h3 id="1，准备安装目录和文件"><a href="#1，准备安装目录和文件" class="headerlink" title="1，准备安装目录和文件"></a>1，准备安装目录和文件</h3><p><strong>如果没有安装<code>wget</code>，使用命令<code>sudo yum -y install wget</code>安装</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">系统:CentOs</span><br><span class="line"><span class="meta">#</span><span class="bash">进入安装目录</span></span><br><span class="line">cd  /home/minio</span><br><span class="line"><span class="meta">#</span><span class="bash">在线下载二进制文件</span></span><br><span class="line">wget https://dl.min.io/server/minio/release/linux-amd64/minio</span><br></pre></td></tr></table></figure>
+
+<h3 id="2，安装"><a href="#2，安装" class="headerlink" title="2，安装"></a>2，安装</h3><h5 id="赋权"><a href="#赋权" class="headerlink" title="赋权"></a>赋权</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">提权</span></span><br><span class="line">chmod +x minio</span><br></pre></td></tr></table></figure>
+
+<h5 id="设置用户名、密码"><a href="#设置用户名、密码" class="headerlink" title="设置用户名、密码"></a>设置用户名、密码</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">设置控制台账号（最少3位）</span></span><br><span class="line">export MINIO_ACCESS_KEY=admin</span><br></pre></td></tr></table></figure>
+
+<h5 id="设置密码（最少8位）"><a href="#设置密码（最少8位）" class="headerlink" title="设置密码（最少8位）"></a>设置密码（最少8位）</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export MINIO_SECRET_KEY=12345678</span><br></pre></td></tr></table></figure>
+
+<h5 id="创建存储目录及日志文件"><a href="#创建存储目录及日志文件" class="headerlink" title="创建存储目录及日志文件"></a>创建存储目录及日志文件</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">创建存储目录</span></span><br><span class="line">mkdir -p  /home/minio/data</span><br><span class="line"><span class="meta">#</span><span class="bash">进入</span></span><br><span class="line">cd /home/minio</span><br><span class="line"><span class="meta">#</span><span class="bash">创建日志文件</span></span><br><span class="line">touch minio.log</span><br></pre></td></tr></table></figure>
+
+<h3 id="3，后台启动"><a href="#3，后台启动" class="headerlink" title="3，后台启动"></a>3，后台启动</h3><h5 id="进入执行文件目录"><a href="#进入执行文件目录" class="headerlink" title="进入执行文件目录"></a>进入执行文件目录</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup /home/minio/minio server --address :9800 --console-address :9889 /home/minio/data &gt;/home/minio/minio.log 2&gt;&amp;1 &amp;</span><br></pre></td></tr></table></figure>
+
+<h5 id="备注："><a href="#备注：" class="headerlink" title="备注："></a>备注：</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> nohup：后台启动</span><br><span class="line"> ./minio server：启动命令</span><br><span class="line"> --address :9800：指定API端口</span><br><span class="line"> --console-address :9889：指定控制台端口</span><br><span class="line">/home/minio/data：指定存储目录</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">/home/minio/minio.log 2&gt;&amp;1 ：控制台日志重定向到/home/minio/minio.log文件中</span></span><br><span class="line">&amp;：后台运行</span><br></pre></td></tr></table></figure>
+
+<h3 id="4，开放对应防火墙端口"><a href="#4，开放对应防火墙端口" class="headerlink" title="4，开放对应防火墙端口"></a>4，开放对应防火墙端口</h3><h4 id="1，查看防火墙状态"><a href="#1，查看防火墙状态" class="headerlink" title="1，查看防火墙状态"></a>1，查看防火墙状态</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables status</span><br></pre></td></tr></table></figure>
+
+<h5 id="注，如果此时提示：Unit-iptables-service-could-not-be-found-解决方案："><a href="#注，如果此时提示：Unit-iptables-service-could-not-be-found-解决方案：" class="headerlink" title="注，如果此时提示：Unit iptables.service could not be found. 解决方案："></a>注，如果此时提示：Unit iptables.service could not be found. 解决方案：</h5><h6 id="1-安装iptables-services"><a href="#1-安装iptables-services" class="headerlink" title="1.安装iptables-services"></a>1.安装iptables-services</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install iptables-services</span><br></pre></td></tr></table></figure>
+
+<h6 id="2-启动iptables"><a href="#2-启动iptables" class="headerlink" title="2.启动iptables"></a>2.启动iptables</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable iptables</span><br><span class="line">systemctl start iptables</span><br></pre></td></tr></table></figure>
+
+<h6 id="3-再次查看防火墙状态"><a href="#3-再次查看防火墙状态" class="headerlink" title="3.再次查看防火墙状态"></a>3.再次查看防火墙状态</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables status</span><br></pre></td></tr></table></figure>
+
+<p>关闭防火墙:</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables <span class="keyword">stop</span></span><br></pre></td></tr></table></figure>
+
+<p>打开防火墙:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables start </span><br></pre></td></tr></table></figure>
+
+<h4 id="2-重启防火墙"><a href="#2-重启防火墙" class="headerlink" title="2.重启防火墙"></a>2.重启防火墙</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables restart</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-查看端口状态"><a href="#3-查看端口状态" class="headerlink" title="3.查看端口状态"></a>3.查看端口状态</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -an|grep 9889</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-编辑防火墙配置文件"><a href="#4-编辑防火墙配置文件" class="headerlink" title="4.编辑防火墙配置文件"></a>4.编辑防火墙配置文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/iptables</span><br></pre></td></tr></table></figure>
+
+<p>注：一定注意自己的虚拟机系统是什么</p>
+<p>ubuntu 使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 3306 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<p>CentOS 使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 3306 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<p>注意上述代码要放在之后</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A INPUT -m state --state NEW -m tcp -p tcp --dport 22 -j ACCEPT</span><br></pre></td></tr></table></figure>
+
+<p>注意上述代码要放在之前</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-A INPUT -j REJECT --reject-with icmp-host-prohibited</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-重启防火墙"><a href="#5-重启防火墙" class="headerlink" title="5.重启防火墙"></a>5.重启防火墙</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables restart</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-尝试登录MinIo"><a href="#5-尝试登录MinIo" class="headerlink" title="5.尝试登录MinIo"></a>5.尝试登录MinIo</h3><p>地址：主机IP:9889</p>
+<p>密码为之前设置的admin账号</p>
+<h3 id="6-新建管理员用户并赋权"><a href="#6-新建管理员用户并赋权" class="headerlink" title="6.新建管理员用户并赋权"></a><strong>6.新建管理员用户并赋权</strong></h3><p>备注：此处新建的管理员用户用于Nacos配置文件中配置Minio的账户，不能使用默认管理员账号的原因有以下两点，一是不安全，二是Minio如果宕机重启后默认的用户名和密码会变成minioadmin</p>
+<p>，所以需要手动创建一个管理员用户。[<img src="/images/57f13c398943104b0b05c129be266e15b05addf4.png" alt="img">]</p>
+<p>[<img src="/images/41894046c80c66eac872494827eb4cdf549a0f37.png" alt="img">]</p>
+<h3 id="7-设置Minio服务器宕机后自动重启"><a href="#7-设置Minio服务器宕机后自动重启" class="headerlink" title="7.设置Minio服务器宕机后自动重启"></a>7.设置Minio服务器宕机后自动重启</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/rc.d/init.d</span><br><span class="line"><span class="meta">#</span><span class="bash">新建shell脚本文件</span></span><br><span class="line">vi startMinio.sh</span><br></pre></td></tr></table></figure>
+
+<p>写入如下内容</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash">chkconfig: 2345 10 90</span></span><br><span class="line"><span class="meta">#</span><span class="bash">description: ping10</span></span><br><span class="line">nohup /home/minio/minio server --address :9800 --console-address :9889 /home/minio/data &gt;/home/minio/minio.log 2&gt;&amp;1 &amp;</span><br><span class="line"><span class="meta">#</span><span class="bash">给shell脚本赋权</span></span><br><span class="line">chmod +x startMinio.sh</span><br><span class="line"><span class="meta">#</span><span class="bash">添加到开机自启动服务中</span></span><br><span class="line">chkconfig --add startMinio.sh</span><br><span class="line"><span class="meta">#</span><span class="bash">设置开机自启动</span></span><br><span class="line">chkconfig startMinio.sh on</span><br><span class="line"><span class="meta">#</span><span class="bash">查看是否添加成功</span></span><br><span class="line">chkconfig --list</span><br></pre></td></tr></table></figure>
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -214,16 +298,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/27/Centos%E5%AE%89%E8%A3%85Minio%E5%8D%95%E6%9C%BA%E7%89%88%E6%AD%A5%E9%AA%A4/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/10/27/Centos%E5%AE%89%E8%A3%85Minio%E5%8D%95%E6%9C%BA%E7%89%88%E6%AD%A5%E9%AA%A4/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2022/10/27/%E8%A7%A3%E5%86%B3Redis%E5%9C%A8linuxd%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">解决Redis在linuxd编译安装遇到的问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -238,683 +381,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-解决Redis在linuxd编译安装遇到的问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/27/%E8%A7%A3%E5%86%B3Redis%E5%9C%A8linuxd%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">解决Redis在linuxd编译安装遇到的问题</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/27/%E8%A7%A3%E5%86%B3Redis%E5%9C%A8linuxd%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2022-10-27T08:44:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记录redis-5.0.8在安装编译过程中遇到问题和解决方案</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/27/%E8%A7%A3%E5%86%B3Redis%E5%9C%A8linuxd%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1%EF%BC%8C%E5%87%86%E5%A4%87%E5%AE%89%E8%A3%85%E7%9B%AE%E5%BD%95%E5%92%8C%E6%96%87%E4%BB%B6"><span class="toc-number">1.</span> <span class="toc-text">1，准备安装目录和文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%EF%BC%8C%E5%AE%89%E8%A3%85"><span class="toc-number">2.</span> <span class="toc-text">2，安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B5%8B%E6%9D%83"><span class="toc-number">2.0.1.</span> <span class="toc-text">赋权</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E7%94%A8%E6%88%B7%E5%90%8D%E3%80%81%E5%AF%86%E7%A0%81"><span class="toc-number">2.0.2.</span> <span class="toc-text">设置用户名、密码</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%AF%86%E7%A0%81%EF%BC%88%E6%9C%80%E5%B0%918%E4%BD%8D%EF%BC%89"><span class="toc-number">2.0.3.</span> <span class="toc-text">设置密码（最少8位）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8%E7%9B%AE%E5%BD%95%E5%8F%8A%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6"><span class="toc-number">2.0.4.</span> <span class="toc-text">创建存储目录及日志文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%EF%BC%8C%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8"><span class="toc-number">3.</span> <span class="toc-text">3，后台启动</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BF%9B%E5%85%A5%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="toc-number">3.0.1.</span> <span class="toc-text">进入执行文件目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%87%E6%B3%A8%EF%BC%9A"><span class="toc-number">3.0.2.</span> <span class="toc-text">备注：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%EF%BC%8C%E5%BC%80%E6%94%BE%E5%AF%B9%E5%BA%94%E9%98%B2%E7%81%AB%E5%A2%99%E7%AB%AF%E5%8F%A3"><span class="toc-number">4.</span> <span class="toc-text">4，开放对应防火墙端口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1%EF%BC%8C%E6%9F%A5%E7%9C%8B%E9%98%B2%E7%81%AB%E5%A2%99%E7%8A%B6%E6%80%81"><span class="toc-number">4.1.</span> <span class="toc-text">1，查看防火墙状态</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%A8%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%AD%A4%E6%97%B6%E6%8F%90%E7%A4%BA%EF%BC%9AUnit-iptables-service-could-not-be-found-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%9A"><span class="toc-number">4.1.1.</span> <span class="toc-text">注，如果此时提示：Unit iptables.service could not be found. 解决方案：</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85iptables-services"><span class="toc-number">4.1.1.1.</span> <span class="toc-text">1.安装iptables-services</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-%E5%90%AF%E5%8A%A8iptables"><span class="toc-number">4.1.1.2.</span> <span class="toc-text">2.启动iptables</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#3-%E5%86%8D%E6%AC%A1%E6%9F%A5%E7%9C%8B%E9%98%B2%E7%81%AB%E5%A2%99%E7%8A%B6%E6%80%81"><span class="toc-number">4.1.1.3.</span> <span class="toc-text">3.再次查看防火墙状态</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E9%87%8D%E5%90%AF%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">4.2.</span> <span class="toc-text">2.重启防火墙</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3%E7%8A%B6%E6%80%81"><span class="toc-number">4.3.</span> <span class="toc-text">3.查看端口状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E7%BC%96%E8%BE%91%E9%98%B2%E7%81%AB%E5%A2%99%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">4.4.</span> <span class="toc-text">4.编辑防火墙配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E9%87%8D%E5%90%AF%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-number">4.5.</span> <span class="toc-text">5.重启防火墙</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%B0%9D%E8%AF%95%E7%99%BB%E5%BD%95MinIo"><span class="toc-number">5.</span> <span class="toc-text">5.尝试登录MinIo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%96%B0%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98%E7%94%A8%E6%88%B7%E5%B9%B6%E8%B5%8B%E6%9D%83"><span class="toc-number">6.</span> <span class="toc-text">6.新建管理员用户并赋权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%AE%BE%E7%BD%AEMinio%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%95%E6%9C%BA%E5%90%8E%E8%87%AA%E5%8A%A8%E9%87%8D%E5%90%AF"><span class="toc-number">7.</span> <span class="toc-text">7.设置Minio服务器宕机后自动重启</span></a></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-系统业务异常堆栈截取优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/26/%E7%B3%BB%E7%BB%9F%E4%B8%9A%E5%8A%A1%E5%BC%82%E5%B8%B8%E5%A0%86%E6%A0%88%E6%88%AA%E5%8F%96%E4%BC%98%E5%8C%96/">系统业务异常堆栈截取优化</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/26/%E7%B3%BB%E7%BB%9F%E4%B8%9A%E5%8A%A1%E5%BC%82%E5%B8%B8%E5%A0%86%E6%A0%88%E6%88%AA%E5%8F%96%E4%BC%98%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2022-10-26T08:14:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>针对日志打业务印异常堆栈优化，过滤掉系统类包外的堆栈信息。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">异常优化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/26/%E7%B3%BB%E7%BB%9F%E4%B8%9A%E5%8A%A1%E5%BC%82%E5%B8%B8%E5%A0%86%E6%A0%88%E6%88%AA%E5%8F%96%E4%BC%98%E5%8C%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Docker自定义java镜像" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/21/Docker%E8%87%AA%E5%AE%9A%E4%B9%89java%E9%95%9C%E5%83%8F/">Docker自定义java镜像</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/21/Docker%E8%87%AA%E5%AE%9A%E4%B9%89java%E9%95%9C%E5%83%8F/" class="archive-article-date">
-  	<time datetime="2022-10-21T08:56:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>找不到arm架构的java8镜像，Docker自定义java8镜像</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">docker自定义</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/21/Docker%E8%87%AA%E5%AE%9A%E4%B9%89java%E9%95%9C%E5%83%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MySQL高版本查询only-full-group-by问题解决" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/21/MySQL%E9%AB%98%E7%89%88%E6%9C%AC%E6%9F%A5%E8%AF%A2only-full-group-by%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">MySQL高版本查询only_full_group_by问题解决</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/21/MySQL%E9%AB%98%E7%89%88%E6%9C%AC%E6%9F%A5%E8%AF%A2only-full-group-by%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" class="archive-article-date">
-  	<time datetime="2022-10-21T07:36:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记录MySQL5.7版本查询报错，<code>sql_mode=only_full_group_by</code>解决方案</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/21/MySQL%E9%AB%98%E7%89%88%E6%9C%AC%E6%9F%A5%E8%AF%A2only-full-group-by%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MySQL导入数据报错-MySQL-2006-MySQLserver-has-gone-away" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/21/MySQL%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E6%8A%A5%E9%94%99-MySQL-2006-MySQLserver-has-gone-away/">MySQL导入数据报错:MySQL 2006-MySQLserver has gone away</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/21/MySQL%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E6%8A%A5%E9%94%99-MySQL-2006-MySQLserver-has-gone-away/" class="archive-article-date">
-  	<time datetime="2022-10-21T07:16:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记录一下MySQL导入数据报错：<code>MySQL 2006-MySQLserver has gone away</code></p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MySQL导入数据</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/21/MySQL%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E6%8A%A5%E9%94%99-MySQL-2006-MySQLserver-has-gone-away/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-git取消远程分支关联并且关联新分支和推送代码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/19/git%E5%8F%96%E6%B6%88%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%85%B3%E8%81%94%E5%B9%B6%E4%B8%94%E5%85%B3%E8%81%94%E6%96%B0%E5%88%86%E6%94%AF%E5%92%8C%E6%8E%A8%E9%80%81%E4%BB%A3%E7%A0%81/">git取消远程分支关联并且关联新分支和推送代码</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/19/git%E5%8F%96%E6%B6%88%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%85%B3%E8%81%94%E5%B9%B6%E4%B8%94%E5%85%B3%E8%81%94%E6%96%B0%E5%88%86%E6%94%AF%E5%92%8C%E6%8E%A8%E9%80%81%E4%BB%A3%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2022-10-19T08:23:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>git取消现有远程分支关联，再关联新的仓库分支。推送到新的远程仓库。</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">git取消</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/19/git%E5%8F%96%E6%B6%88%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF%E5%85%B3%E8%81%94%E5%B9%B6%E4%B8%94%E5%85%B3%E8%81%94%E6%96%B0%E5%88%86%E6%94%AF%E5%92%8C%E6%8E%A8%E9%80%81%E4%BB%A3%E7%A0%81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linux-arm安装docker-compose" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/19/linux-arm%E5%AE%89%E8%A3%85docker-compose/">linux_arm安装docker-compose</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/19/linux-arm%E5%AE%89%E8%A3%85docker-compose/" class="archive-article-date">
-  	<time datetime="2022-10-19T03:00:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记录<strong>arm</strong>架构linux机器安装docker-compose</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">arm安装软件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/19/linux-arm%E5%AE%89%E8%A3%85docker-compose/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-openssl命令查看证书信息" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/08/openssl%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E8%AF%81%E4%B9%A6%E4%BF%A1%E6%81%AF/">openssl命令查看证书信息</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/08/openssl%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E8%AF%81%E4%B9%A6%E4%BF%A1%E6%81%AF/" class="archive-article-date">
-  	<time datetime="2022-10-08T08:05:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用openssl命令SSL证书查询相关信息等</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ssl</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/08/openssl%E5%91%BD%E4%BB%A4%E6%9F%A5%E7%9C%8B%E8%AF%81%E4%B9%A6%E4%BF%A1%E6%81%AF/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-解决docker容器时区问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/08/25/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98/">解决docker容器时区问题</a>
-    </h1>
-  
-
-        
-        <a href="/2022/08/25/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98/" class="archive-article-date">
-  	<time datetime="2022-08-25T09:36:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-08-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Docker容器部署Java服务，时区问题导致接口查询的时间对不上</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">docker时区</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/08/25/%E8%A7%A3%E5%86%B3docker%E5%AE%B9%E5%99%A8%E6%97%B6%E5%8C%BA%E9%97%AE%E9%A2%98/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -937,8 +429,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
