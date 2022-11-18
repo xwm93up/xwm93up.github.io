@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021/5 | 逃不开夏天</title>
+  <title>Docker在pull时出现错误下载不了镜像 | 逃不开夏天</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="逃不开夏天">
-<meta property="og:url" content="http://example.com/archives/2021/05/index.html">
+  <meta name="description" content="Docker pull下载出现 error pulling image configuration">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker在pull时出现错误下载不了镜像">
+<meta property="og:url" content="http://example.com/2022/11/18/Docker%E5%9C%A8pull%E6%97%B6%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%E4%B8%8B%E8%BD%BD%E4%B8%8D%E4%BA%86%E9%95%9C%E5%83%8F/index.html">
 <meta property="og:site_name" content="逃不开夏天">
-<meta property="og:description" content="个人博客">
+<meta property="og:description" content="Docker pull下载出现 error pulling image configuration">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-18T02:43:00.000Z">
+<meta property="article:modified_time" content="2022-11-18T03:27:25.156Z">
 <meta property="article:author" content="xwm93">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Docker">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="逃不开夏天" type="application/atom+xml">
@@ -169,60 +171,191 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Docker在pull时出现错误下载不了镜像" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/10/Elasticsearch%E5%AE%9E%E7%8E%B0%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2/" class="archive-article-date">
-  	<time datetime="2021-05-10T14:04:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/10/Elasticsearch%E5%AE%9E%E7%8E%B0%E5%95%86%E5%93%81%E6%90%9C%E7%B4%A2/">Elasticsearch实现商品搜索</a>
+    <h1 class="article-title" itemprop="name">
+      Docker在pull时出现错误下载不了镜像
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2022/11/18/Docker%E5%9C%A8pull%E6%97%B6%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%E4%B8%8B%E8%BD%BD%E4%B8%8D%E4%BA%86%E9%95%9C%E5%83%8F/" class="archive-article-date">
+  	<time datetime="2022-11-18T02:43:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-11-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Docker pull下载出现 <code>error pulling image configuration</code></p>
+<span id="more"></span>
+
+<p><strong>解决办法</strong></p>
+<p>1.执行以下命令修改配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;DOCKER_OPTS=&quot;$DOCKER_OPTS --registry-mirror=http://f2d6cb40.m.daocloud.io&quot;&quot; | sudo tee -a /etc/default/docker</span><br></pre></td></tr></table></figure>
+
+
+
+<p>2.重启docker</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Elasticsearch</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Docker</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2022/11/18/Docker%E5%9C%A8pull%E6%97%B6%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF%E4%B8%8B%E8%BD%BD%E4%B8%8D%E4%BA%86%E9%95%9C%E5%83%8F/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2022/10/27/Centos%E5%AE%89%E8%A3%85Minio%E5%8D%95%E6%9C%BA%E7%89%88%E6%AD%A5%E9%AA%A4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Centos安装Minio单机版步骤</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -245,8 +378,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
