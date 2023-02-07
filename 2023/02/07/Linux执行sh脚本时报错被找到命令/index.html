@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>逃不开夏天</title>
+  <title>Linux执行sh脚本时报错被找到命令 | 逃不开夏天</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="个人博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="逃不开夏天">
-<meta property="og:url" content="http://example.com/page/6/index.html">
+  <meta name="description" content="Linux执行sh脚本报错$&#39;\r&#39;: 未找到命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux执行sh脚本时报错被找到命令">
+<meta property="og:url" content="http://example.com/2023/02/07/Linux%E6%89%A7%E8%A1%8Csh%E8%84%9A%E6%9C%AC%E6%97%B6%E6%8A%A5%E9%94%99%E8%A2%AB%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="逃不开夏天">
-<meta property="og:description" content="个人博客">
+<meta property="og:description" content="Linux执行sh脚本报错$&#39;\r&#39;: 未找到命令">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-07T09:38:27.000Z">
+<meta property="article:modified_time" content="2023-02-07T09:44:14.728Z">
 <meta property="article:author" content="xwm93">
-<meta property="article:tag" content="Java">
+<meta property="article:tag" content="sh脚本">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="逃不开夏天" type="application/atom+xml">
@@ -169,32 +171,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-MySQL实现读写分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Linux执行sh脚本时报错被找到命令" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/12/MySQL%E5%AE%9E%E7%8E%B0%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/">MySQL实现读写分离</a>
+    <h1 class="article-title" itemprop="name">
+      Linux执行sh脚本时报错被找到命令
     </h1>
   
 
         
-        <a href="/2021/11/12/MySQL%E5%AE%9E%E7%8E%B0%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/" class="archive-article-date">
-  	<time datetime="2021-11-12T08:24:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-12</time>
+        <a href="/2023/02/07/Linux%E6%89%A7%E8%A1%8Csh%E8%84%9A%E6%9C%AC%E6%97%B6%E6%8A%A5%E9%94%99%E8%A2%AB%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2023-02-07T09:38:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>利用Spring提供的路由数据源实现MySQL读写分离</p>
-        
+        <p>Linux执行sh脚本报错<code>$&#39;\r&#39;: 未找到命令</code></p>
+<span id="more"></span>
+
+<p><strong>原因</strong></p>
+<p>脚本是在Windows下编辑完成后上传Linux上执行的，Windows下的换行是回车符+换行符，也就是\r\n,而Linux下是换行符\n。</p>
+<p>Linux下不识别\r为回车符，所以导致每行的配置都多了个\r，因此是编码的问题。</p>
+<p><strong>解决方案</strong></p>
+<p>yum命令安装dos2unix，然后使用命令<code>dos2unix</code>转换</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum -y install dos2unix</span><br><span class="line">dos2unix &lt;scriptFullName&gt;</span><br></pre></td></tr></table></figure>
+
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -205,7 +235,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">MySQL读写分离</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sh脚本</a>
         		</li>
       		
 		</ul>
@@ -214,16 +244,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/12/MySQL%E5%AE%9E%E7%8E%B0%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2023/02/07/Linux%E6%89%A7%E8%A1%8Csh%E8%84%9A%E6%9C%AC%E6%97%B6%E6%8A%A5%E9%94%99%E8%A2%AB%E6%89%BE%E5%88%B0%E5%91%BD%E4%BB%A4/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2023/02/06/%E6%97%A0%E6%B3%95%E5%9C%A8docker-compose%E4%B8%AD%E6%8F%90%E4%BE%9B%E7%BD%91%E7%BB%9C%E5%90%8D%E7%A7%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">无法在docker-compose中提供网络名称</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -238,686 +327,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-本地用ip连接数据库却报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/12/%E6%9C%AC%E5%9C%B0%E7%94%A8ip%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%B4%E6%8A%A5%E9%94%99/">本地用ip连接数据库却报错?</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/12/%E6%9C%AC%E5%9C%B0%E7%94%A8ip%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%B4%E6%8A%A5%E9%94%99/" class="archive-article-date">
-  	<time datetime="2021-11-12T03:44:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>yml文件配置数据源连接本地mysql服务, url能使用locahost, 而改成本机ip连接却报错?</p>
-<ul>
-<li>mysql是windows版本8.0.26</li>
-</ul>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/12/%E6%9C%AC%E5%9C%B0%E7%94%A8ip%E8%BF%9E%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%B4%E6%8A%A5%E9%94%99/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    目录，不存在的…
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
-  
-    <article id="post-Mysql创建用户并授权命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/11/Mysql%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83%E5%91%BD%E4%BB%A4/">Mysql创建用户并授权命令</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/11/Mysql%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2021-11-11T03:15:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目中配置多数据源使Mysql读写分离, 如何使用命令给不同用户分配读写权限</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Mysql命令</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/11/Mysql%E5%88%9B%E5%BB%BA%E7%94%A8%E6%88%B7%E5%B9%B6%E6%8E%88%E6%9D%83%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-LinkedHashMap原理和底层实现" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/11/LinkedHashMap%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/">LinkedHashMap原理和底层实现</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/11/LinkedHashMap%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/" class="archive-article-date">
-  	<time datetime="2021-11-11T01:26:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>学习一下LinkedHashMap原理和底层实现</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">LinkedHashMap</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/11/LinkedHashMap%E5%8E%9F%E7%90%86%E5%92%8C%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-关于CountDownLatch" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/10/%E5%85%B3%E4%BA%8ECountDownLatch/">关于CountDownLatch</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/10/%E5%85%B3%E4%BA%8ECountDownLatch/" class="archive-article-date">
-  	<time datetime="2021-11-10T07:02:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>简单探索一下Java工具包中CountDownLatch的作用</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">CountDownLatch</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/10/%E5%85%B3%E4%BA%8ECountDownLatch/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-WebSocket实现用户取餐码实时展示" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/06/WebSocket%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E5%8F%96%E9%A4%90%E7%A0%81%E5%AE%9E%E6%97%B6%E5%B1%95%E7%A4%BA/">WebSocket实现用户取餐码实时展示</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/06/WebSocket%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E5%8F%96%E9%A4%90%E7%A0%81%E5%AE%9E%E6%97%B6%E5%B1%95%E7%A4%BA/" class="archive-article-date">
-  	<time datetime="2021-11-06T02:54:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用webSocket长连接实现服务器往客户端实时推送待取餐码</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">webSocket</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/06/WebSocket%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E5%8F%96%E9%A4%90%E7%A0%81%E5%AE%9E%E6%97%B6%E5%B1%95%E7%A4%BA/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-订单30分钟未支付自动取消" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/11/01/%E8%AE%A2%E5%8D%9530%E5%88%86%E9%92%9F%E6%9C%AA%E6%94%AF%E4%BB%98%E8%87%AA%E5%8A%A8%E5%8F%96%E6%B6%88/">订单30分钟未支付自动取消</a>
-    </h1>
-  
-
-        
-        <a href="/2021/11/01/%E8%AE%A2%E5%8D%9530%E5%88%86%E9%92%9F%E6%9C%AA%E6%94%AF%E4%BB%98%E8%87%AA%E5%8A%A8%E5%8F%96%E6%B6%88/" class="archive-article-date">
-  	<time datetime="2021-11-01T03:43:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>记录自动取消30分钟内未支付订单的几种实现</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">自动取消订单</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/11/01/%E8%AE%A2%E5%8D%9530%E5%88%86%E9%92%9F%E6%9C%AA%E6%94%AF%E4%BB%98%E8%87%AA%E5%8A%A8%E5%8F%96%E6%B6%88/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-value注解的使用2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/29/value%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BD%BF%E7%94%A82/">value注解的使用2</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/29/value%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BD%BF%E7%94%A82/" class="archive-article-date">
-  	<time datetime="2021-10-29T01:47:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>SpringBoot注解中@Value的使用进阶</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">注解value</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/29/value%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BD%BF%E7%94%A82/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-value注解的使用1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/28/value%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BD%BF%E7%94%A81/">value注解的使用1</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/28/value%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BD%BF%E7%94%A81/" class="archive-article-date">
-  	<time datetime="2021-10-28T10:20:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>探索一下@Value注解是怎么样注入属性的</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">注解value</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/28/value%E6%B3%A8%E8%A7%A3%E7%9A%84%E4%BD%BF%E7%94%A81/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-pojo转换神器MapStruct" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/27/pojo%E8%BD%AC%E6%8D%A2%E7%A5%9E%E5%99%A8MapStruct/">pojo转换神器MapStruct</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/27/pojo%E8%BD%AC%E6%8D%A2%E7%A5%9E%E5%99%A8MapStruct/" class="archive-article-date">
-  	<time datetime="2021-10-27T10:52:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>快看看Pojo转换神器MapStruct的用法，替换BeanUtils</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">mapStruct</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/27/pojo%E8%BD%AC%E6%8D%A2%E7%A5%9E%E5%99%A8MapStruct/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/">下一页</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -940,8 +375,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
