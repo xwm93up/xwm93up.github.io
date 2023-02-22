@@ -171,6 +171,218 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-SpringEvent加DDD等于王炸" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/02/22/SpringEvent%E5%8A%A0DDD%E7%AD%89%E4%BA%8E%E7%8E%8B%E7%82%B8/">SpringEvent加DDD等于王炸</a>
+    </h1>
+  
+
+        
+        <a href="/2023/02/22/SpringEvent%E5%8A%A0DDD%E7%AD%89%E4%BA%8E%E7%8E%8B%E7%82%B8/" class="archive-article-date">
+  	<time datetime="2023-02-22T07:07:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-02-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>以下文章来源于geekhalo ，作者geekhalo</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU1Nzg4NjgyMw==&mid=2247506199&idx=1&sn=457912818af109f0d6f9d707fb5bcd48&chksm=fc2c651fcb5bec09a02ad5078936aa648552a07d1cd4d1878c9b14278085310b81ae7324ee22&subscene=236&scene=90&sessionid=1906232958&key=feba99fab63ae56798e913c4558730ac7dca4e6181ea073bccd43d450645bfa1eb258ee8d4954722d777fe6b21c3f520b182d197d4fe38ce2bd4778df36ca7ba1f2c16cbf6c84810d393ea2c1dfd0544f807977f80fa0241682ac4101c40df83bd2ca47b181a131158350c707e4e7f5f07ae48343d679bf24d2ae3fe0f3645de&ascene=14&uin=MTkxNDQ0MDA2MQ==&devicetype=Windows+10+x64&version=6309001c&lang=zh_CN&countrycode=BM&exportkey=n_ChQIAhIQL0r99Z5x+djWrz6uPjCs7RLxAQIE97dBBAEAAAAAALgZMz9sPjkAAAAOpnltbLcz9gKNyK89dVj075QbqwEBBVpN0zTAg1hb6HQmNoNXcY606brTLUK5xUE1aPHVnO88TPHiYBpEw0YatoI97UVEmb6O0diw05DRMUzZxZoUC3YylPlF/CnOzMtv4eKp4n3ELcAVKWTUwBGzrIDBHC5WmR07x+FfRcGn8somBzd/c7HfBEdQLh85pW+D/siPqLnnVBuL3zu4BvrJVQMffHYafuzS4LtL8RXyAmEcmfaiMkAONiSypXw9ukdGaZ+681RDIwb9WwXtFo+aWgjyhbIEISX0KOI=&acctmode=0&pass_ticket=rT5SxkH2tfMnXrhXo18MWbzLzs3s0/P2KWWqVCwNcoNFVCuP7xHKdweewtd2teSkkpSc7XSUDlnGbScSAgjORg==&wx_header=1&fontgear=2#"><img src="http://wx.qlogo.cn/mmhead/Q3auHgzwzM4AnFWPmwUOcBH15HIokQWVjrTsibcNq1dKibicJa4rILOhA/0" alt="img"><strong>geekhalo</strong>.Java 后端技术分享，主要包括 微服务领域（Spring、Spring Boot、Spring Cloud等）、业务建模领域（DDD 领域驱动设计）、长链接领域（Netty、Socket、在线课堂）等</a></p>
+<h2 id="1-领域事件"><a href="#1-领域事件" class="headerlink" title="1. 领域事件"></a>1. 领域事件</h2><blockquote>
+<p>领域事件是 DDD 中重要的模式之一，主要用于模型或系统间的解耦，提高系统的可扩展性和可维护性。</p>
+</blockquote>
+<h3 id="1-1-什么是领域事件"><a href="#1-1-什么是领域事件" class="headerlink" title="1.1. 什么是领域事件"></a>1.1. 什么是领域事件</h3><p>领域事件是领域驱动设计（Domain-Driven Design，简称DDD）中的一个重要概念，特指在领域模型中发生的有意义的事件，是对领域模型中的重要业务动作执行结果的抽象，如订单创建、支付完成等。</p>
+<p>在DDD中，领域事件是一种用于传递信息的机制，它使得不同领域模型之间的通信变得更加简单和灵活。通过将事件分发给相关的订阅者，可以让不同的领域模型之间实现松耦合，从而更容易扩展和维护应用程序。</p>
+<p>领域事件通常由领域对象主动触发并发布，而事件处理器则负责订阅事件并对事件进行处理。通过事件发布和订阅机制，可以在应用程序中实现高效的事件驱动架构，从而更好地支持复杂的业务逻辑和业务流程。</p>
+<p>说起来有点抽象，简单举个例子：假设有一个电子商务系统，用户下单后需要生成订单并发送通知给相关人员。在领域模型中，可以定义一个 Order 领域对象，该对象可以包含多个属性，如订单号、下单时间、购买的商品信息、收货地址等等。当用户下单时，可以通过调用 Order 对象的方法来生成订单，同时也可以通过领域事件来发送通知。</p>
+<p>具体来说，可以定义一个 OrderCreated 领域事件，用于表示订单创建完成的事件，该事件包含一些必要的属性，如订单号、下单时间、购买的商品信息、收货地址等等。当 Order 对象创建完成后，可以通过领域事件来触发发送通知的操作，比如发送邮件或短信通知相关人员。</p>
+<h3 id="1-2-领域事件的应用场景"><a href="#1-2-领域事件的应用场景" class="headerlink" title="1.2. 领域事件的应用场景"></a>1.2. 领域事件的应用场景</h3><p>领域事件的应用创建众多，从图中可以看出：</p>
+<p><img src="/images/18e4a08c-6c16-457c-b3fb-8bafce6b07bd" alt="图片"></p>
+<p>领域事件可以：</p>
+<ul>
+<li>保证聚合间的数据一致性。当一个聚合根上的操作引发了其他聚合根的变更时，将这些变更作为领域事件发布出去，其他聚合根可以订阅这些事件并更新自己的状态，从而实现最终一致性。</li>
+<li>替换批量处理。可以作为任务的触发器，例如定时任务、异步任务，避免定时+扫描这类批量处理。</li>
+<li>实现事件源模式。将所有的领域事件全部存储下来，可以用于恢复聚合的状态，实现事件源模式；也可以用于后续的审计和调试。</li>
+<li>进行限界上下文集成。将事件从一个子域发布到另一个子域，使得这两个子域可以解耦，不用相互知道彼此的存在。</li>
+</ul>
+<p>领域事件虽好，但仍需技术框架进行支持，其实 Spring 的 Event 机制就足以满足各类需求。</p>
+<h2 id="2-Spring-对-Event-的支持"><a href="#2-Spring-对-Event-的支持" class="headerlink" title="2. Spring 对 Event 的支持"></a>2. Spring 对 Event 的支持</h2><p>在 Spring 中，事件的处理可以通过三种方式来实现：</p>
+<ol>
+<li>基于接口的事件处理：通过实现 ApplicationListener 接口并重写 onApplicationEvent 方法来处理事件。</li>
+<li>基于注解的事件处理：通过在方法上添加 @EventListener 或 @TransactionEventListener 注解来处理事件，可以指定事件的类型以及监听的条件等。</li>
+<li>基于异步事件处理：通过使用 @Async 注解来异步处理事件，可以提高应用程序的响应速度。</li>
+</ol>
+<h3 id="2-1-基于接口的事件处理"><a href="#2-1-基于接口的事件处理" class="headerlink" title="2.1. 基于接口的事件处理"></a>2.1. 基于接口的事件处理</h3><blockquote>
+<p>由于与 Spring 存在强耦合，现在已经很少使用，可以直接跳过。</p>
+</blockquote>
+<p>下面是一个基于接口的事件处理的示例代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class MyEventListener implements ApplicationListener&lt;MyEvent&gt; &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onApplicationEvent(MyEvent event) &#123;</span><br><span class="line">        // 处理事件</span><br><span class="line">        System.out.println(&quot;Received event: &quot; + event.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class MyEvent &#123;</span><br><span class="line">    private String message;</span><br><span class="line"></span><br><span class="line">    public MyEvent(String message) &#123;</span><br><span class="line">        this.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getMessage() &#123;</span><br><span class="line">        return message;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">public class MyEventPublisher &#123;</span><br><span class="line">    @Autowired</span><br><span class="line">    private ApplicationEventPublisher eventPublisher;</span><br><span class="line"></span><br><span class="line">    public void publishEvent(String message) &#123;</span><br><span class="line">        MyEvent event = new MyEvent(message);</span><br><span class="line">        eventPublisher.publishEvent(event);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，MyEvent 是一个自定义的事件类，MyEventListener 是一个实现了 ApplicationListener 接口的监听器，用于处理 MyEvent 事件，MyEventPublisher 是用于发布事件的类。</p>
+<p>当应用程序调用 MyEventPublisher 的 publishEvent 方法时，会触发一个 MyEvent 事件，MyEventListener 中的 onApplicationEvent 方法将被自动调用，从而处理这个事件。</p>
+<h3 id="2-2-基于注解的事件处理"><a href="#2-2-基于注解的事件处理" class="headerlink" title="2.2. 基于注解的事件处理"></a>2.2. 基于注解的事件处理</h3><blockquote>
+<p>Spring 提供 @EventListener 和 @TransactionListener 两个注解以简化对事件的处理。</p>
+</blockquote>
+<h4 id="2-2-1-EventListener"><a href="#2-2-1-EventListener" class="headerlink" title="2.2.1. @EventListener"></a>2.2.1. @EventListener</h4><p>Spring 的 EventListener 监听器是一种相对于传统的事件监听方式更为简洁和灵活的事件机制。与传统的事件机制不同，EventListener 不需要显示地继承特定的事件接口，而是使用注解标识需要监听的事件类型，然后通过一个单独的监听器类处理所有类型的事件。</p>
+<p>相比之下 EventListener 的优势主要有以下几点：</p>
+<ol>
+<li>更加灵活：EventListener 不依赖于任何特定的事件接口，从而使得事件处理更加灵活，可以监听和处理任意类型的事件。</li>
+<li>更加简洁：相比传统的事件监听方式，使用 EventListener 可以避免一系列繁琐的接口定义和实现，简化了代码结构，使得开发效率更高。</li>
+<li>更加松耦合：EventListener 将事件发布方和事件处理方分离，遵循松耦合的设计原则，提高了代码的可维护性和扩展性。</li>
+<li>更加可测试：由于 EventListener 可以监听和处理任意类型的事件，可以通过单元测试验证其功能是否正确，从而提高了测试的可靠性。</li>
+</ol>
+<p>以下是一个简单的例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class MyEventListener&#123;</span><br><span class="line"></span><br><span class="line">    @EventListener</span><br><span class="line">    public void onApplicationEvent(MyEvent event) &#123;</span><br><span class="line">        // 处理事件</span><br><span class="line">        System.out.println(&quot;Received event: &quot; + event.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public class MyEvent &#123;</span><br><span class="line">    private String message;</span><br><span class="line"></span><br><span class="line">    public MyEvent(String message) &#123;</span><br><span class="line">        this.message = message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getMessage() &#123;</span><br><span class="line">        return message;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Component</span><br><span class="line">public class MyEventPublisher &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private ApplicationEventPublisher eventPublisher;</span><br><span class="line"></span><br><span class="line">    public void publishEvent(String message) &#123;</span><br><span class="line">        MyEvent event = new MyEvent(message);</span><br><span class="line">        eventPublisher.publishEvent(event);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相比基于接口的事件处理，EventListener 是一种更加简洁、灵活、松耦合、可测试的事件机制，能够有效地降低开发的复杂度，提高开发效率。</p>
+<h4 id="2-2-2-TransactionEventListener"><a href="#2-2-2-TransactionEventListener" class="headerlink" title="2.2.2. @TransactionEventListener"></a>2.2.2. @TransactionEventListener</h4><p>在 Spring 中，TransactionEventListner 和 EventListner 都是用于处理事件的接口。不同之处在于</p>
+<ol>
+<li>TransactionEventListner 是在事务提交后才会触发</li>
+<li>而 EventListner 则是在事件发布后就会触发。</li>
+</ol>
+<p>具体来说，在使用 Spring 的声明式事务时，可以在事务提交后触发某些事件。这就是 TransactionEventListner 的应用场景。而 EventListner 则不涉及事务，可以用于在事件发布后触发一些操作。</p>
+<p>下面是一个简单的示例，演示了如何使用 TransactionEventListner 和 EventListner：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class MyEventListener &#123;</span><br><span class="line"></span><br><span class="line">    @EventListener</span><br><span class="line">    public void handleMyEvent(MyEvent event) &#123;</span><br><span class="line">        // 处理 MyEvent</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @TransactionalEventListener</span><br><span class="line">    public void handleMyTransactionalEvent(MyTransactionalEvent event) &#123;</span><br><span class="line">        // 处理 MyTransactionalEvent</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Service</span><br><span class="line">public class MyService &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private ApplicationEventPublisher eventPublisher;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private MyRepository myRepository;</span><br><span class="line"></span><br><span class="line">    @Transactional</span><br><span class="line">    public void doSomething() &#123;</span><br><span class="line">        // 做一些事情</span><br><span class="line">        MyEntity entity = myRepository.findById(1L);</span><br><span class="line">        // 发布事件</span><br><span class="line">        eventPublisher.publishEvent(new MyEvent(this, entity));</span><br><span class="line">        // 发布事务事件</span><br><span class="line">        eventPublisher.publishEvent(new MyTransactionalEvent(this, entity));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中，MyEventListener 类定义了两个方法，handleMyEvent 和 handleMyTransactionalEvent，分别处理 MyEvent 和 MyTransactionalEvent 事件。其中，handleMyTransactionalEvent 方法用 @TransactionalEventListener 注解标记，表示它只会在事务提交后触发。</p>
+<p>MyService 类中的 doSomething 方法使用 ApplicationEventPublisher 来发布事件。注意，它发布了两种不同类型的事件：MyEvent 和 MyTransactionalEvent。这两个事件会分别触发 MyEventListener 中的对应方法。</p>
+<p>总的来说，Spring 的事件机制非常灵活，可以方便地扩展应用程序的功能。TransactionEventListner 和 EventListner 这两个接口的应用场景有所不同，可以根据实际需求选择使用。</p>
+<h3 id="2-3-基于异步事件处理"><a href="#2-3-基于异步事件处理" class="headerlink" title="2.3.基于异步事件处理"></a>2.3.基于异步事件处理</h3><blockquote>
+<p>@Async是Spring框架中的一个注解，用于将一个方法标记为异步执行。使用该注解，Spring将自动为该方法创建一个新线程，使其在后台异步执行，不会阻塞主线程的执行。</p>
+</blockquote>
+<p>在具体应用中，使用@Async可以大大提升应用的并发处理能力，使得系统能够更快地响应用户请求，提高系统的吞吐量。</p>
+<p>@Async 和 @EventListener 或 @TransactionEventListener 注解在一起使用时，会产生异步的事件处理器。使用这种组合的方式，事件处理器会在单独的线程池中执行，以避免阻塞主线程。这种方式在需要处理大量事件或者事件处理器耗时较长的情况下非常有用，可以有效提高应用的性能和可伸缩性。同时，Spring 框架对这种方式也提供了完善的支持，可以方便地使用这种方式来实现异步事件处理。</p>
+<p>下面是一个简单的示例代码，演示了如何在 Spring 中使用 @Async 和 @EventListener 一起实现异步事件处理：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">public class ExampleEventListener &#123;</span><br><span class="line"></span><br><span class="line">    @Async</span><br><span class="line">    @EventListener</span><br><span class="line">    public void handleExampleEvent(ExampleEvent event) &#123;</span><br><span class="line">        // 在新的线程中执行异步逻辑</span><br><span class="line">        // ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个示例中，ExampleEventListener 类中的 handleExampleEvent 方法使用了 @Async 和 @EventListener 注解，表示这个方法是一个异步事件监听器。当一个 ExampleEvent 事件被触发时，这个方法会被异步地执行。在这个方法中，可以执行任何异步的逻辑处理，比如向队列发送消息、调用其他服务等。</p>
+<p>备注：在使用 @Async 时，需要根据业务场景对线程池进行自定义，以免出现资源不够的情况（Spring 默认使用单线程处理@Async异步任务）</p>
+<h2 id="4-场景分析"><a href="#4-场景分析" class="headerlink" title="4. 场景分析"></a>4. 场景分析</h2><p>综上所述，当领域事件发出来之后，不同的注解会产生不同的行为，简单汇总如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="left">@EventListener</th>
+<th align="left">@TransactionEventListener</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">无 @Async</td>
+<td align="left">顺序、同步执行</td>
+<td align="left">事务提交后、同步执行</td>
+</tr>
+<tr>
+<td align="left">有 @Async</td>
+<td align="left">顺序、异步执行</td>
+<td align="left">事务提交后、异步执行</td>
+</tr>
+</tbody></table>
+<h3 id="4-1-EventListener"><a href="#4-1-EventListener" class="headerlink" title="4.1. @EventListener"></a>4.1. @EventListener</h3><p><img src="/images/50f48fea-5ea7-469e-8fa5-fe56eb922a15" alt="图片"></p>
+<p>特点：</p>
+<ol>
+<li>顺序执行。调用 publish(Event) 后，自动触发对 @EventListner 注释方法的调用</li>
+<li>同步执行。使用主线程执行，方法抛出异常会中断调用链路，会触发事务的回归</li>
+</ol>
+<p>应用场景：</p>
+<ol>
+<li>事务消息表。在同一事务中完成对业务数据和消息表的修改</li>
+<li>业务验证。对业务对象进行最后一次验证，如果验证不通过直接抛出异常中断数据库事务</li>
+<li>业务插件。在当前线程和事务中执行插件完成业务扩展</li>
+</ol>
+<h3 id="4-2-TransactionEventListener"><a href="#4-2-TransactionEventListener" class="headerlink" title="4.2. @TransactionEventListener"></a>4.2. @TransactionEventListener</h3><p><img src="/images/91d13c7e-3852-49c6-a575-e358e5da38b9" alt="图片"></p>
+<p>特点：</p>
+<ol>
+<li>事务提交后执行。调用 publish(Event) 时，只是向上下文中注册了一个回调器，并不会立即执行；只有在事务提交后，才会触发对 @TransactionEventListner 注释方法的调用</li>
+<li>同步执行。使用主线程执行，方法抛出异常会中断调用链路，当不会回归事务（事务已提交，没有办法进行回归）</li>
+</ol>
+<p>应用场景：</p>
+<ol>
+<li>数据同步。事务提交后，将变更同步到 ES 或 Cache</li>
+<li>记录审计日志。只有在业务变更成功更新到数据库时才进行记录</li>
+</ol>
+<p>备注：@TransactionEventLisnter 必须在事务上下文中，脱离上下文，调用不会生效</p>
+<h3 id="4-3-EventListener-Async"><a href="#4-3-EventListener-Async" class="headerlink" title="4.3. @EventListener + @Async"></a>4.3. @EventListener + @Async</h3><p><img src="/images/588762c7-8ea0-447d-a9ee-4b51511f6fe6" alt="图片"></p>
+<p>特点：</p>
+<ol>
+<li>顺序执行。调用 publish(Event) 后，自动触发对 @EventListner 注释方法的调用</li>
+<li>异步执行。使用独立的线程池执行任务，方法抛出异常对主流程没有任何影响</li>
+</ol>
+<p>应用场景：</p>
+<ol>
+<li>记日志明细日志，辅助排查问题</li>
+</ol>
+<h3 id="4-4-TransactionEventListener-Async"><a href="#4-4-TransactionEventListener-Async" class="headerlink" title="4.4. @TransactionEventListener + @Async"></a>4.4. @TransactionEventListener + @Async</h3><p><img src="/images/72c10a5b-1dce-4c3b-8a3e-688265c871d4" alt="图片"></p>
+<p>特点：</p>
+<ol>
+<li>事务提交后执行。调用 publish(Event) 时，只是向上下文中注册了一个回调器，并不会立即执行；只有在事务提交后，才会触发对 @TransactionEventListner 注释方法的调用</li>
+<li>异步执行。使用独立的线程池执行任务，方法抛出异常对主流程没有任何影响</li>
+</ol>
+<p>应用场景：异步处理。记录操作日志，异步保存数据等 备注：@TransactionEventLisnter 必须在事务上下文中，脱离上下文，调用不会生效</p>
+<h2 id="5-小结"><a href="#5-小结" class="headerlink" title="5. 小结"></a>5. 小结</h2><p>领域事件的落地，不仅需要强大的设计能力，还需要与之匹配的基础设施。Spring 作为最常用的框架，基于发布订阅实现了完整的一套 Event 管理机制。工具在手是否能根据业务场景选择合适的解决方案就成了研发的职责，简单思考以下组合适用场景是什么：</p>
+<ol>
+<li>@EventListener</li>
+<li>@TransactionEventListener</li>
+<li>@EventListener + @Async</li>
+<li>@TransactionEventListener + @Async</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">DDD+SpringEvent</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/02/22/SpringEvent%E5%8A%A0DDD%E7%AD%89%E4%BA%8E%E7%8E%8B%E7%82%B8/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux执行sh脚本时报错被找到命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -837,80 +1049,6 @@
 
 
   
-    <article id="post-Docker自定义java镜像" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/10/21/Docker%E8%87%AA%E5%AE%9A%E4%B9%89java%E9%95%9C%E5%83%8F/">Docker自定义java镜像</a>
-    </h1>
-  
-
-        
-        <a href="/2022/10/21/Docker%E8%87%AA%E5%AE%9A%E4%B9%89java%E9%95%9C%E5%83%8F/" class="archive-article-date">
-  	<time datetime="2022-10-21T08:56:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-10-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>找不到arm架构的java8镜像，Docker自定义java8镜像</p>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">docker自定义</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2022/10/21/Docker%E8%87%AA%E5%AE%9A%E4%B9%89java%E9%95%9C%E5%83%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
@@ -1012,11 +1150,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">docker自定义</a>
+                <a href="javascript:void(0)" class="js-tag color5">开放端口</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开放端口</a>
+                <a href="javascript:void(0)" class="js-tag color1">minio</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1024,7 +1162,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">minio</a>
+                <a href="javascript:void(0)" class="js-tag color5">docker自定义</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1060,11 +1198,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1092,11 +1230,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">sbt+SpringSecurity、JWT</a>
+                <a href="javascript:void(0)" class="js-tag color1">DDD+SpringEvent</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Spring面试题</a>
+                <a href="javascript:void(0)" class="js-tag color3">sbt+SpringSecurity、JWT</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1104,11 +1242,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Stream流处理</a>
+                <a href="javascript:void(0)" class="js-tag color5">Spring面试题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CentOS7</a>
+                <a href="javascript:void(0)" class="js-tag color5">Stream流处理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1116,15 +1254,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CentOS7</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">webSocket</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">git取消</a>
+                <a href="javascript:void(0)" class="js-tag color5">docker-compose</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">docker-compose</a>
+                <a href="javascript:void(0)" class="js-tag color1">git取消</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1172,11 +1314,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">导出PDF</a>
+                <a href="javascript:void(0)" class="js-tag color4">工具类</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">工具类</a>
+                <a href="javascript:void(0)" class="js-tag color1">导出PDF</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1208,15 +1350,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">docker时区</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
