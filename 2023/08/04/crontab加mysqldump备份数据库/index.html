@@ -16,7 +16,7 @@
 <meta property="og:description" content="使用mysqldump结合crontab定时备份mysql数据库">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-04T03:22:29.000Z">
-<meta property="article:modified_time" content="2023-08-04T03:58:03.305Z">
+<meta property="article:modified_time" content="2023-08-04T05:58:03.182Z">
 <meta property="article:author" content="xwm93">
 <meta property="article:tag" content="数据库备份">
 <meta name="twitter:card" content="summary">
@@ -219,7 +219,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
 
 <p>2)添加配置参数，如23点50分执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">30 15 * * * cd /usr/local/mysql/bin;sh backup.sh &gt;&gt; log.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">50 23 * * * cd /usr/local/mysql/bin;sh backup.sh &gt;&gt; log.txt</span><br></pre></td></tr></table></figure>
 
 
       
@@ -470,10 +470,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">开放端口</a>
               </li>
              
@@ -482,11 +478,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">docker</a>
+                <a href="javascript:void(0)" class="js-tag color2">Docker</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">docker自定义</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
