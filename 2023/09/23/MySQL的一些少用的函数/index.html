@@ -16,7 +16,7 @@
 <meta property="og:description" content="盘一下MySQL中相对生疏的函数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-23T08:04:30.000Z">
-<meta property="article:modified_time" content="2023-09-23T10:09:37.821Z">
+<meta property="article:modified_time" content="2023-10-08T03:22:32.481Z">
 <meta property="article:author" content="xwm93">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -200,8 +200,22 @@
 <p><strong>2.去掉左边的所有空格</strong><code>LTRIM()</code></p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LTRIM(dev_name) <span class="keyword">FROM</span> t_device;</span><br></pre></td></tr></table></figure>
 
+<p><strong>3.返回串左边的字符</strong><code>LEFT()</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">LEFT</span>(device_number,<span class="number">4</span>) <span class="keyword">from</span> all_device <span class="keyword">WHERE</span> device_id <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 
+<p><strong>4.返回串的长度</strong><code>LENGTH()</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LENGTH(device_number) <span class="keyword">from</span> all_device <span class="keyword">WHERE</span> device_id <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 
+<p><strong>5.找出一个串的子串<code>LOCATE()</code>，返回的是子串的下标</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> LOCATE(<span class="string">&#x27;5a61&#x27;</span>,device_number) <span class="keyword">from</span> all_device <span class="keyword">WHERE</span> device_id <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>6.将串转换为小写</strong><code>LOWER()</code></p>
+<p><strong>7.返回串右边的字符</strong><code>RIGHT()</code></p>
+<p><strong>8.返回串的SOUNDEX值</strong><code>SOUNDEX()</code></p>
+<p><strong>9.返回子串的字符</strong><code>SubString()</code></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> substr(<span class="string">&#x27;123456&#x27;</span>,<span class="number">2</span>);</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>从第二位开始截取</span><br><span class="line"><span class="number">23456</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> substr(<span class="string">&#x27;123456&#x27;</span>,<span class="number">10</span>);</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>从第<span class="number">10</span>位开始截取，返回空字符串</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> substr(<span class="string">&#x27;123456&#x27;</span>,<span class="number">-2</span>);</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>从倒数第二位开始截取</span><br><span class="line"><span class="number">56</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> substr(<span class="string">&#x27;123456&#x27;</span>,<span class="number">2</span>,<span class="number">2</span>);</span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>从第二位开始截取，截取两位</span><br><span class="line"><span class="number">23</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>10.将串装换为大写</strong><code>Upper()</code></p>
 
       
 
@@ -460,6 +474,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">minio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">开放端口</a>
               </li>
              
@@ -472,19 +490,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">minio</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">GitLab</a>
+                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Elasticsearch</a>
+                <a href="javascript:void(0)" class="js-tag color2">GitLab</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -544,15 +558,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MySQL主从</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MySQL读写分离</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">MySQL导入数据</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MySQL主从</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -604,11 +618,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">SpringTask</a>
+                <a href="javascript:void(0)" class="js-tag color3">sbt+SpringSecurity、JWT</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">sbt+SpringSecurity、JWT</a>
+                <a href="javascript:void(0)" class="js-tag color1">SpringTask</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -668,6 +682,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ssl</a>
               </li>
              
@@ -712,10 +730,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">导出PDF</a>
               </li>
              
@@ -736,11 +750,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">异常优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">策略模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">异常优化</a>
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -749,10 +767,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">docker时区</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
